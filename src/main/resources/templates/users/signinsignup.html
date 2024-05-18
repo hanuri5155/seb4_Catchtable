@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>signin&up</title>
+    <link rel="stylesheet" th:href="@{/css/signinsignup.css}">
+</head>
+<body>
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form action="#" th:action method="post" th:object="${user}">
+            <h1>회원가입</h1>
+
+            <!-- Name Field -->
+            <div class="mb-3">
+                <label for="name" class="form-label">이름 *</label>
+                <input type="text" th:field="*{username}" class="form-control" id="name" placeholder="한글, 영문만 입력해 주세요.">
+                <small class="text-muted">레스토랑을 예약할 때 사용할 이름으로 꼭 실명을 사용해 주세요.</small>
+            </div>
+
+            <!-- Mobile Number Field -->
+            <div class="mb-3">
+                <label for="mobile" class="form-label">휴대폰 번호 *</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="mobile" placeholder="숫자만 입력해 주세요.">
+                    <button type="button" class="btn btn-primary">인증번호 요청</button>
+                </div>
+            </div>
+
+            <!-- Password Fields -->
+            <div class="mb-3">
+                <label for="password" class="form-label">비밀번호 *</label>
+                <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해 주세요.">
+                <input type="password" class="form-control mt-2" id="confirm-password" placeholder="비밀번호를 다시 한 번 입력해 주세요.">
+                <small class="text-muted">영문, 숫자, 특수문자 중 2종류 이상을 조합하여 8-20자리로 설정해 주세요.</small>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="bg-light border p-3 rounded mb-4">
+                <h6>이용자 약관 전체 동의</h6>
+                <ul class="list-unstyled">
+                    <li class="d-flex align-items-center justify-content-between">
+                        <span class="label-text">[필수] 만 14세 이상입니다.</span>
+                        <input class="form-check-input" type="checkbox">
+                    </li>
+                    <li class="d-flex align-items-center justify-content-between">
+                        <span class="label-text">[필수] 캐시테이블 이용 약관 동의</span>
+                        <input class="form-check-input" type="checkbox">
+                    </li>
+                    <li class="d-flex align-items-center justify-content-between">
+                        <span class="label-text">[필수] 개인정보 수집 및 이용 동의</span>
+                        <input class="form-check-input" type="checkbox">
+                    </li>
+                    <li class="d-flex align-items-center justify-content-between">
+                        <span class="label-text">[필수] 개인정보 제3자 제공 동의</span>
+                        <input class="form-check-input" type="checkbox">
+                    </li>
+                    <li class="d-flex align-items-center justify-content-between">
+                        <span class="label-text">[선택] 개인정보 제공 동의</span>
+                        <input class="form-check-input" type="checkbox">
+                    </li>
+                    <li class="d-flex align-items-center justify-content-between">
+                        <span class="label-text">[선택] 이벤트 알림 서비스 동의</span>
+                        <input class="form-check-input" type="checkbox">
+                    </li>
+                </ul>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <label class="d-flex align-items-center">
+                        <span class="label-text">푸시 알림</span>
+                        <input class="form-check-input ml-2" type="checkbox">
+                    </label>
+                    <label class="d-flex align-items-center ml-4">
+                        <span class="label-text">SMS 수신</span>
+                        <input class="form-check-input ml-2" type="checkbox">
+                    </label>
+                    <label class="d-flex align-items-center ml-4">
+                        <span class="label-text">이메일 수신</span>
+                        <input class="form-check-input ml-2" type="checkbox">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-success w-100">가입하기</button>
+        </form>
+    </div>
+
+    <div class="form-container sign-in-container">
+        <form action="#">
+            <h1>로그인</h1>
+            <p></p>
+            <input type="email" placeholder="전화번호" />
+            <input type="password" placeholder="비밀번호" />
+            <a href="#">비밀번호를 잊으셨나요?</a>
+            <button>로그인</button>
+        </form>
+    </div>
+
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>이미 계정이 있으신가요?</h1>
+                <p>전화번호와 비밀번호로 로그인하세요!</p>
+                <button class="ghost" id="signIn">로그인</button>
+            </div>
+
+            <div class="overlay-panel overlay-right">
+                <h1>환영합니다!</h1>
+                <p>계정이 없으시다면 회원가입을 하세요!</p>
+                <button class="ghost" id="signUp">회원가입</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/signinsignup.js}"></script>
+</body>
+</html>
