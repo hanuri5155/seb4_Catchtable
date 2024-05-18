@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Reserve</title>
+</head>
+<body>
+    <form th:action method="post">
+        <h2 th:text="'Reserve Dining #' + ${ dining_id }"></h2>
+        <p>'식당 예약하기' 버튼을 누른 후 인텔리제이의 디버그 콘솔 창의 로그를 확인하세요.</p>
+        <button type="submit" th:href="@{/reserves/reserve(dining_id=${dining_id})}">식당 예약하기</button>
+    </form>
+</body>
+</html>
