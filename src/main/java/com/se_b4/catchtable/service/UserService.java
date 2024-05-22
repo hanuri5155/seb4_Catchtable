@@ -1,8 +1,14 @@
 package com.se_b4.catchtable.service;
 
 import com.se_b4.catchtable.authority.UserAuthority;
+import com.se_b4.catchtable.entity.AdminEntity;
+import com.se_b4.catchtable.entity.MemberEntity;
+import com.se_b4.catchtable.entity.OwnerEntity;
 import com.se_b4.catchtable.entity.UserEntity;
 import com.se_b4.catchtable.dto.UserDTO;
+import com.se_b4.catchtable.repository.AdminRepository;
+import com.se_b4.catchtable.repository.MemberRepository;
+import com.se_b4.catchtable.repository.OwnerRepository;
 import com.se_b4.catchtable.repository.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,16 +26,51 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     // 가입한 유저를 DB 에 삽입
-    public void create(
-            String username, String userid, String password, String phone_number, UserAuthority authority
-    ){
-        UserEntity user = new UserEntity();
-        user.setUsername(username);
-        user.setUserid(userid);
-        user.setPassword(passwordEncoder.encode(password)); // Spring Security 에서 제공하는 passwordEncoder로 비밀번호를 암호화
-        user.setPhone_number(phone_number);
-        user.setAuthority(authority);
-        this.userRepository.save(user);
+//    public void create(
+//            String username, String userid, String password, String phone_number, UserAuthority authority
+//    ){
+//        UserEntity user = new UserEntity();
+//        user.setUsername(username);
+//        user.setUserid(userid);
+//        user.setPassword(passwordEncoder.encode(password)); // Spring Security 에서 제공하는 passwordEncoder로 비밀번호를 암호화
+//        user.setPhone_number(phone_number);
+//        user.setAuthority(authority);
+//        this.userRepository.save(user);
+//    }
+
+    private final MemberRepository memberRepository;
+    private final OwnerRepository ownerRepository;
+    private final AdminRepository adminRepository;
+
+    public void create(String username, String userid, String password, String phoneNumber, UserAuthority authority) {
+        if (authority == UserAuthority.USER) {
+            MemberEntity member = MemberEntity.builder()
+                    .username(username)
+                    .userid(userid)
+                    .password(passwordEncoder.encode(password))
+                    .phone_number(phoneNumber)
+                    .authority(authority)
+                    .build();
+            memberRepository.save(member);
+        } else if (authority == UserAuthority.OWNER) {
+            OwnerEntity owner = OwnerEntity.builder()
+                    .username(username)
+                    .userid(userid)
+                    .password(passwordEncoder.encode(password))
+                    .phone_number(phoneNumber)
+                    .authority(authority)
+                    .build();
+            ownerRepository.save(owner);
+        } else if (authority == UserAuthority.ADMIN) {
+            AdminEntity admin = AdminEntity.builder()
+                    .username(username)
+                    .userid(userid)
+                    .password(passwordEncoder.encode(password))
+                    .phone_number(phoneNumber)
+                    .authority(authority)
+                    .build();
+            adminRepository.save(admin);
+        }
     }
 
     public UserDTO Signin(UserDTO userDTO) throws UsernameNotFoundException {
