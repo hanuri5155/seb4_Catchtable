@@ -45,15 +45,15 @@ public class UserService {
         else return null;
     }
 
-    public List<UserDTO> findAll() {
-        List<UserEntity> userEntityList = userRepository.findAll();
-        List<UserDTO> userDTOList = new ArrayList<>();
-        for (UserEntity userEntity: userEntityList) {
-            userDTOList.add(UserDTO.toUserDTO(userEntity));
-            // 아래랑 같은 의미
-            //UserDTO userDTO = UserDTO.toUserDTO(userEntity);
-            //UserDTOList.add(userDTO);
-        }
-        return userDTOList;
-    }
+//    public List<UserDTO> findAll() {
+//        List<UserEntity> userEntityList = userRepository.findAll();
+//        List<UserDTO> userDTOList = new ArrayList<>();
+//        for (UserEntity userEntity: userEntityList) {
+//            userDTOList.add(UserDTO.toUserDTO(userEntity));
+//            // 아래랑 같은 의미
+//            //UserDTO userDTO = UserDTO.toUserDTO(userEntity);
+//            //UserDTOList.add(userDTO);
+//        }
+//        return userDTOList;
+//    }
 }
