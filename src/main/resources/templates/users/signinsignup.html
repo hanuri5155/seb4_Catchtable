@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" dir="ltr">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <title>signin&up</title>
@@ -8,31 +8,57 @@
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="#" th:action method="post" th:object="${user}">
+        <form th:action="@{/users/signup}" method="post" th:object="${user}">
             <h1>회원가입</h1>
 
             <!-- Name Field -->
             <div class="mb-3">
-                <label for="name" class="form-label">이름 *</label>
-                <input type="text" th:field="*{username}" class="form-control" id="name" placeholder="한글, 영문만 입력해 주세요.">
+                <label for="username" class="form-label">이름 *</label>
+                <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="한글, 영문만 입력해 주세요.">
                 <small class="text-muted">레스토랑을 예약할 때 사용할 이름으로 꼭 실명을 사용해 주세요.</small>
             </div>
 
             <!-- Mobile Number Field -->
             <div class="mb-3">
-                <label for="mobile" class="form-label">휴대폰 번호 *</label>
+                <label for="phone_number" class="form-label">휴대폰 번호 *</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="mobile" placeholder="숫자만 입력해 주세요.">
+                    <input type="text" th:field="*{phone_number}" class="form-control" id="phone_number" placeholder="숫자만 입력해 주세요.">
                     <button type="button" class="btn btn-primary">인증번호 요청</button>
                 </div>
+            </div>
+
+            <!-- User ID Field -->
+            <div class="mb-3">
+                <label for="userid" class="form-label">아이디 *</label>
+                <input type="text" th:field="*{userid}" class="form-control" id="userid" placeholder="아이디를 입력해 주세요.">
+                <small class="text-muted">6-20자리로 설정해 주세요.</small>
             </div>
 
             <!-- Password Fields -->
             <div class="mb-3">
                 <label for="password" class="form-label">비밀번호 *</label>
-                <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해 주세요.">
-                <input type="password" class="form-control mt-2" id="confirm-password" placeholder="비밀번호를 다시 한 번 입력해 주세요.">
+                <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="비밀번호를 입력해 주세요.">
+<!--                <input type="password" class="form-control mt-2" id="confirm-password" placeholder="비밀번호를 다시 한 번 입력해 주세요.">-->
                 <small class="text-muted">영문, 숫자, 특수문자 중 2종류 이상을 조합하여 8-20자리로 설정해 주세요.</small>
+            </div>
+
+            <!-- User Authority -->
+            <div class="md-3 text-left">
+                <label class="form-label">사용자 유형 *</label>
+                <div class="form-check">
+                    <label class="label-text" for="roleUser">
+                        <span class="label-text">일반 회원</span>
+                        <input class="form-check-input ml-2" type="radio" th:field="*{authority}" id="roleUser" value="USER">
+                    </label>
+                    <label class="label-text ml-4" for="roleOwner">
+                        <span class="label-text">식당 사업자</span>
+                        <input class="form-check-input ml-2" type="radio" th:field="*{authority}" id="roleOwner" value="OWNER">
+                    </label>
+                    <label class="label-text ml-4" for="roleAdmin">
+                        <span class="label-text">관리자</span>
+                        <input class="form-check-input ml-2" type="radio" th:field="*{authority}" id="roleAdmin" value="ADMIN">
+                    </label>
+                </div>
             </div>
 
             <!-- Terms and Conditions -->
@@ -49,18 +75,6 @@
                     </li>
                     <li class="d-flex align-items-center justify-content-between">
                         <span class="label-text">[필수] 개인정보 수집 및 이용 동의</span>
-                        <input class="form-check-input" type="checkbox">
-                    </li>
-                    <li class="d-flex align-items-center justify-content-between">
-                        <span class="label-text">[필수] 개인정보 제3자 제공 동의</span>
-                        <input class="form-check-input" type="checkbox">
-                    </li>
-                    <li class="d-flex align-items-center justify-content-between">
-                        <span class="label-text">[선택] 개인정보 제공 동의</span>
-                        <input class="form-check-input" type="checkbox">
-                    </li>
-                    <li class="d-flex align-items-center justify-content-between">
-                        <span class="label-text">[선택] 이벤트 알림 서비스 동의</span>
                         <input class="form-check-input" type="checkbox">
                     </li>
                 </ul>
@@ -86,13 +100,13 @@
     </div>
 
     <div class="form-container sign-in-container">
-        <form action="#">
+        <form th:action="@{/users/signin}" method="post" class="form login" th:object="${user}">
             <h1>로그인</h1>
             <p></p>
-            <input type="email" placeholder="전화번호" />
-            <input type="password" placeholder="비밀번호" />
+            <input autocomplete="signin_userid" th:field="*{userid}" id="signin_userid" type="text" name="signin_userid" class="form-control" placeholder="아이디" />
+            <input id="signin_password" th:field="*{password}" type="password" name="signin_password" placeholder="비밀번호" />
             <a href="#">비밀번호를 잊으셨나요?</a>
-            <button>로그인</button>
+            <button type="submit">로그인</button>
         </form>
     </div>
 

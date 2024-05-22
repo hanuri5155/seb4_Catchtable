@@ -15,6 +15,6 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<UserEntity, String> {
-    // username으로 회원 정보 조회, select * from user_table where username=? 이과 같은 쿼리문 수행
-    Optional<UserEntity> findByUsername(String username);
+    // userid으로 회원 정보 조회, select * from user_table where username=? 이과 같은 쿼리문 수행
+    Optional<UserEntity> findByUserid(String userid);
 }

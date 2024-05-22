@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" dir="ltr">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <title>index</title>
@@ -7,6 +7,7 @@
 <body>
 소프트웨어 공학 B4조
 <p></p>
-<a class="nav-link" th:href="@{/users/signinsignup}"><b>LOGIN</b></a>
+<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/users/signinsignup}"><b>LOGIN</b></a>
+<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/users/signout}"><b>LOGOUT</b></a>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.se_b4.catchtable.entity;
 
+import com.se_b4.catchtable.authority.UserAuthority;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -13,13 +14,19 @@ import java.time.LocalDateTime;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uuid; // 유저 고유 아이디
+    private Long uuid;              // 유저 고유 아이디
 
     @Column(unique = true)
-    private String username; // 유저 이름
-    private String password; // 비밀번호
-    private String phone_number; // 전화번호
-    private LocalDateTime join_date; // 가입일
+    private String userid;          // 유저 아이디
+
+    private String username;        // 유저 이름
+    private String password;        // 비밀번호
+    private String phone_number;    // 전화번호
+    private LocalDateTime join_date;// 가입일
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserAuthority authority;// 유저 권한
 
     // User 엔티티가 DB 에 저장되기 직전에 값을 생성
     @PrePersist
