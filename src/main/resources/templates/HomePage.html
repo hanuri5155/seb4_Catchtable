@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+소프트웨어 공학 B4조
+<p></p>
+session 값 확인: <p th:text="${session.loggedInUser}"></p>
+<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/users/signin}"><b>LOGIN</b></a>
+<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/users/signout}"><b>LOGOUT</b></a>
+<a class="nav-link" th:href="@{/owners/BusinessPage}"><b>식당 사업자 메인 페이지</b></a>
+<a class="nav-link" th:href="@{/admins/AdminPage}"><b>플랫폼 관리자 메인 페이지</b></a>
+
+</body>
+</html>

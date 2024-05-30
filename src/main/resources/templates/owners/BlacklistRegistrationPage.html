@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" dir="ltr"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- jQuery 스크립트 추가 -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <!-- Materialize 스크립트 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/management.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/signinsignup.css}">-->
+    <title>ownerMain</title>
+</head>
+<body>
+
+<ul id="slide-out" class="side-nav fixed z-depth-2">
+    <li class="center no-padding">
+        <div class="indigo darken-2 white-text" style="height: 180px;">
+            <div class="row">
+                <img style="margin-top: 5%;" width="100" height="100" src="https://lh3.google.com/u/0/d/1DWyLzHo4Ib3p5s8K7LJOgD7J1XKdtBR4=w1920-h945-iv1" class="circle responsive-img" />
+
+                <p style="margin-top: -13%;">
+                    식당 사업자
+                </p>
+            </div>
+        </div>
+    </li>
+
+    <li id="dash_dashboard"><a class="waves-effect" th:href="@{/owners/BusinessPage}"><b>대시보드</b></a></li>
+
+    <ul class="collapsible" data-collapsible="accordion">
+        <li id="dash_users">
+            <div id="dash_users_header" class="collapsible-header waves-effect"><b>식당 관리</b></div>
+            <div id="dash_users_body" class="collapsible-body">
+                <ul>
+                    <li id="users_seller">
+                        <a class="waves-effect" style="text-decoration: none;" href="#!">식당 정보 등록</a>
+                        <a class="waves-effect" style="text-decoration: none;" href="#!">식당 정보 수정</a>
+                        <a class="waves-effect" style="text-decoration: none;" href="#!">식당 정보 조회</a>
+                        <a class="waves-effect" style="text-decoration: none;" href="#!">식당 정보 삭제</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li id="dash_products">
+            <div id="dash_products_header" class="collapsible-header waves-effect"><b>블랙리스트 관리</b></div>
+            <div id="dash_products_body" class="collapsible-body">
+                <ul>
+                    <li id="products_product">
+                        <a class="waves-effect" style="text-decoration: none;" th:href="@{/owners/BlacklistRegistrationPage}">블랙리스트 등록</a>
+                        <a class="waves-effect" style="text-decoration: none;" href="#!">블랙리스트 조회</a>
+                        <a class="waves-effect" style="text-decoration: none;" href="#!">블랙리스트 삭제</a>
+
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</ul>
+
+<header>
+    <ul class="dropdown-content" id="user_dropdown">
+        <li><a class="indigo-text" href="#!">프로필</a></li>
+        <li><a class="indigo-text" href="#!">로그아웃</a></li>
+    </ul>
+
+    <nav class="indigo" role="navigation">
+        <div class="nav-wrapper">
+            <a data-activates="slide-out" class="button-collapse show-on-" href="#!"><img style="margin-top: 17px; margin-left: 5px;" src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463989873/smaller-main-logo_3_bm40iv.gif" /></a>
+
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a>
+                </li>
+            </ul>
+
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+        </div>
+    </nav>
+
+    <nav>
+        <div class="nav-wrapper indigo darken-2">
+            <a style="margin-left: 20px;" class="breadcrumb" href="#!">식당 사업자</a>
+            <a class="breadcrumb" href="#!">블랙리스트 관리</a>
+            <a class="breadcrumb" href="#!">블랙리스트 등록</a>
+
+            <div style="margin-right: 20px;" id="timestamp" class="right"></div>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <div class="row">
+        <div class="col s12">
+            <div style="padding: 35px;" align="center" class="card">
+                <div class="row">
+                    <div class="left card-title">
+                        <b>블랙리스트 등록</b>
+                    </div>
+                </div>
+                <div class="row">
+                    <form th:action="@{/owners/BlacklistRegistrationPage}" method="post" th:object="${blacklist}">
+                        <p></p>
+                        <input autocomplete="username" th:field="*{username}" type="text"  placeholder="회원 이름" />
+                        <input th:field="*{phone_number}"  type="text" placeholder="전화번호" />
+                        <button type="submit">등록하기</button>
+                    </form>
+                </div>
+                <div class="row">
+                    <div style="padding: 200px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${successMessage}" id="successMessage" th:text="${successMessage}" style="display:none;"></div>
+    <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large pink waves-effect waves-light">
+            <i class="large material-icons">add</i>
+        </a>
+
+        <ul>
+            <li>
+                <a class="btn-floating red"><i class="material-icons">note_add</i></a>
+                <a href="" class="btn-floating fab-tip">Add a note</a>
+            </li>
+
+            <li>
+                <a class="btn-floating yellow darken-1"><i class="material-icons">add_a_photo</i></a>
+                <a href="" class="btn-floating fab-tip">Add a photo</a>
+            </li>
+
+            <li>
+                <a class="btn-floating green"><i class="material-icons">alarm_add</i></a>
+                <a href="" class="btn-floating fab-tip">Add an alarm</a>
+            </li>
+
+            <li>
+                <a class="btn-floating blue"><i class="material-icons">vpn_key</i></a>
+                <a href="" class="btn-floating fab-tip">Add a master password</a>
+            </li>
+        </ul>
+    </div>
+</main>
+
+<footer class="indigo page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h5 class="white-text">식당 사업자 전용 페이지 입니다.</h5>
+                <ul id='credits'>
+                    <li>
+                        Gif Logo made using <a href="https://formtypemaker.appspot.com/" title="Form Type Maker">Form Type Maker</a> from <a href="https://github.com/romannurik/FORMTypeMaker" title="romannurik">romannurik</a>
+                    </li>
+                    <li>
+                        Icons made by <a href="https://material.io/icons/">Google</a>, available under <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License Version 2.0</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            <span>소프트웨어공학 3분반 <a style='font-weight: bold;' href="https://github.com/piedcipher" target="_blank"> B4조</a></span>
+        </div>
+    </div>
+</footer>
+</body>
+<script th:src="@{/js/management.js}"></script>
+</html>
