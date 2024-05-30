@@ -11,16 +11,9 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 public class OwnerEntity extends UserEntity{
-
-    private String businessDetails; // 사업장 정보
-    private String restaurantManagementInfo; // 식당 관리 정보
-
-    public OwnerEntity(Long uuid, String userid, String username, String password, String phone_number, LocalDateTime join_date, UserAuthority authority, String businessDetails, String restaurantManagementInfo) {
+    public OwnerEntity(Long uuid, String userid, String username, String password, String phone_number, LocalDateTime join_date, UserAuthority authority) {
         super(uuid, userid, username, password, phone_number, join_date, authority);
-        this.businessDetails = businessDetails;
-        this.restaurantManagementInfo = restaurantManagementInfo;
     }
 }

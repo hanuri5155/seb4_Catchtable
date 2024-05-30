@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 public class UserEntity {
     @Id
@@ -29,6 +28,9 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserAuthority authority;// 유저 권한
+
+    public UserEntity(Long uuid, String userid, String username, String password, String phoneNumber, LocalDateTime joinDate, UserAuthority authority) {
+    }
 
     // User 엔티티가 DB 에 저장되기 직전에 값을 생성
     @PrePersist

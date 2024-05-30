@@ -11,16 +11,9 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 public class MemberEntity extends UserEntity{
-
-    private String reviewContent; // 리뷰 내용
-    private String reportReason;  // 신고 사유
-
-    public MemberEntity(Long uuid, String userid, String username, String password, String phone_number, LocalDateTime join_date, UserAuthority authority, String reviewContent, String reportReason) {
+    public MemberEntity(Long uuid, String userid, String username, String password, String phone_number, LocalDateTime join_date, UserAuthority authority) {
         super(uuid, userid, username, password, phone_number, join_date, authority);
-        this.reviewContent = reviewContent;
-        this.reportReason = reportReason;
     }
 }

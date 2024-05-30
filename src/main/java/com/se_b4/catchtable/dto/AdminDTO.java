@@ -7,14 +7,10 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 public class AdminDTO extends UserDTO{
-
-    private String businessReviewDetails; // 사업장 검토 정보
 
     public static AdminDTO toAdminDTO(AdminEntity entity) {
         return AdminDTO.builder()
@@ -25,7 +21,6 @@ public class AdminDTO extends UserDTO{
                 .phone_number(entity.getPhone_number())
                 .authority(entity.getAuthority())
                 .join_date(entity.getJoin_date())
-                .businessReviewDetails(entity.getBusinessReviewDetails())
                 .build();
     }
 }

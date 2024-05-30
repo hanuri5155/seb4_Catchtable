@@ -10,15 +10,10 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 public class OwnerDTO extends UserDTO{
-
-    private String businessDetails; // 사업장 정보
-    private String restaurantManagementInfo; // 식당 관리 정보
-
 
     public static OwnerDTO toOwnerDTO(OwnerEntity entity) {
         return OwnerDTO.builder()
@@ -29,8 +24,6 @@ public class OwnerDTO extends UserDTO{
                 .phone_number(entity.getPhone_number())
                 .authority(entity.getAuthority())
                 .join_date(entity.getJoin_date())
-                .businessDetails(entity.getBusinessDetails())
-                .restaurantManagementInfo(entity.getRestaurantManagementInfo())
                 .build();
     }
 }

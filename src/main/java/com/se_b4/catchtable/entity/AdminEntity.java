@@ -11,14 +11,9 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 public class AdminEntity extends UserEntity{
-
-    private String businessReviewDetails; // 사업장 검토 정보
-
-    public AdminEntity(Long uuid, String userid, String username, String password, String phone_number, LocalDateTime join_date, UserAuthority authority, String businessReviewDetails) {
+    public AdminEntity(Long uuid, String userid, String username, String password, String phone_number, LocalDateTime join_date, UserAuthority authority) {
         super(uuid, userid, username, password, phone_number, join_date, authority);
-        this.businessReviewDetails = businessReviewDetails;
     }
 }

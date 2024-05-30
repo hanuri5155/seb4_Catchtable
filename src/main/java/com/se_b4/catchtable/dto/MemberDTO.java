@@ -10,14 +10,10 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true) //상위 클래스의 필드도 포함하도록 설정
 @SuperBuilder
 public class MemberDTO extends UserDTO{
-
-    private String reviewContent;  // 리뷰 내용
-    private String reportReason;   // 신고 사유
 
     public static MemberDTO toMemberDTO(MemberEntity entity) {
         return MemberDTO.builder()
@@ -28,8 +24,6 @@ public class MemberDTO extends UserDTO{
                 .phone_number(entity.getPhone_number())
                 .authority(entity.getAuthority())
                 .join_date(entity.getJoin_date())
-                .reviewContent(entity.getReviewContent())
-                .reportReason(entity.getReportReason())
                 .build();
     }
 }
