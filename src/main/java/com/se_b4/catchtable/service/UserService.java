@@ -23,7 +23,7 @@ import java.util.Optional;
 // 회원과 관련된 로직을 작성하는 클래스입니다.
 @RequiredArgsConstructor
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -103,21 +103,21 @@ public class UserService implements UserDetailsService {
 //            return null;
 //        }
 //    }
-    @Override
-    public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
-        Optional<UserEntity> byUserid = this.userRepository.findByUserid(userid);
-        if (byUserid.isEmpty()) {
-            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
-        }
-        UserEntity user = byUserid.get();
-        List<GrantedAuthority> authorities = new ArrayList<>();
-//        if ("admin".equals(username)) {
-//            authorities.add(new SimpleGrantedAuthority(MemberAuthority.ADMIN.getName()));
-//        } else {
-//            authorities.add(new SimpleGrantedAuthority(MemberAuthority.USER.getName()));
+//    @Override
+//    public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
+//        Optional<UserEntity> byUserid = this.userRepository.findByUserid(userid);
+//        if (byUserid.isEmpty()) {
+//            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
 //        }
-        return new CurrentUser(user.getUserid(), user.getPassword(), authorities, user);
-    }
+//        UserEntity user = byUserid.get();
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+////        if ("admin".equals(username)) {
+////            authorities.add(new SimpleGrantedAuthority(MemberAuthority.ADMIN.getName()));
+////        } else {
+////            authorities.add(new SimpleGrantedAuthority(MemberAuthority.USER.getName()));
+////        }
+//        return new CurrentUser(user.getUserid(), user.getPassword(), authorities, user);
+//    }
 
 //    public List<UserDTO> findAll() {
 //        List<UserEntity> userEntityList = userRepository.findAll();
