@@ -12,6 +12,9 @@ session 값 확인: <p th:text="${session.loggedInUser}"></p>
 <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/users/signout}"><b>LOGOUT</b></a>
 <a class="nav-link" th:href="@{/owners/BusinessPage}"><b>식당 사업자 메인 페이지</b></a>
 <a class="nav-link" th:href="@{/admins/AdminPage}"><b>플랫폼 관리자 메인 페이지</b></a>
-
+<a class="nav-link" th:href="@{/admins/BusinessApprovalPage}"><b>사업장 등록 승인 대기 목록</b></a>
+<a class="nav-link" th:href="@{/users/ReviewPage}"><b>리뷰 페이지</b></a>
+<a class="nav-link" th:href="@{/users/DiningPageBase}"><b>식당 상세 페이지</b></a>
+<a class="nav-link" th:href="@{/users/ReportPage}"><b>식당 신고 페이지</b></a>
 </body>
 </html>
