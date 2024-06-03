@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #CCCFE7; /* Lavender (Web) */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+.container {
+    background: #FFFFFF; /* White */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    width: 60%;
+    max-width: 800px;
+    text-align: center;
+    margin: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: #303F9F; /* Marian Blue */
+    font-size: 18px;
+    margin-right: auto;
+}
+
+.rating {
+    margin: 20px 0;
+}
+
+.star {
+    font-size: 32px;
+    color: #CCCFE7; /* Lavender (Web) */
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star.selected {
+    color: orange; /* Change to yellow */
+}
+
+.photo-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.upload-btn {
+    background-color: #303F9F; /* Marian Blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#photo-preview {
+    width: 100%;
+    max-width: 400px;
+    max-height: 300px;
+    border: 1px solid #CCCFE7; /* Lavender (Web) */
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+#photo-preview img {
+    width: 100%;
+    height: auto;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.review-text {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+#review {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #CCCFE7; /* Lavender (Web) */
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    resize: none;
+    overflow: hidden;
+}
+
+.review-instructions {
+    font-size: 14px;
+    color: #303F9F; /* Marian Blue */
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #4A57AB; /* Violet Blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}

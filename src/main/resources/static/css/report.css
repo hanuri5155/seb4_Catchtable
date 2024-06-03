@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #cccfe7; /* Lavender (Web) */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+.container {
+    background: #ffffff; /* White */
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #303f9f; /* Marian Blue */
+    margin-bottom: 20px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.checkbox-group label {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #303f9f; /* Marian Blue */
+}
+
+.textarea-group {
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: left;
+}
+
+.textarea-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #303f9f; /* Marian Blue */
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #4a57ab; /* Violet Blue */
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: none;
+    overflow: hidden;
+}
+
+textarea:disabled {
+    background-color: #f4f4f4;
+}
+
+button {
+    background-color: #646fb7; /* Savoy Blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4a57ab; /* Violet Blue */
+}
