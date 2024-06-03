@@ -22,6 +22,7 @@ public class ReportController
         _model.addAttribute("reportDTO", new ReportDTO());
 
         return "/users/report";
+    }
 
     @PostMapping("")
     public String OnReportSubmitted(@ModelAttribute("reportDTO") ReportDTO reportDTO, @RequestParam("dining_uid") int dining_uid)
