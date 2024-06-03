@@ -28,16 +28,16 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorizeRequests) ->
                 authorizeRequests.anyRequest().permitAll() // 시작 기본 스프링 로그인 페이지 제거
         );
-        http
-                .formLogin(formLogin -> formLogin
-                        .loginPage("/users/signin")
-                        .defaultSuccessUrl("/")
-                )
-                .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
-                        .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true)
-                );
+fh//        http
+//                .formLogin(formLogin -> formLogin
+//                        .loginPage("/users/signinsignup")
+//                        .defaultSuccessUrl("/")
+//                )
+//                .logout(logout -> logout
+//                        .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+//                        .logoutSuccessUrl("/")
+//                        .invalidateHttpSession(true)
+//                );
 
 //                .logout(logout -> logout
 //                        .logoutRequestMatcher(new AntPathRequestMatcher("/users/signout")) // 로그아웃 URL

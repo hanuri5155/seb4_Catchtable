@@ -8,7 +8,7 @@
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form th:action="@{/users/signup}" method="post" th:object="${user}">
+        <form id="signupForm" th:action="@{/users/signup}" method="post" th:object="${user}">
             <h1>회원가입</h1>
 
             <!-- Name Field -->

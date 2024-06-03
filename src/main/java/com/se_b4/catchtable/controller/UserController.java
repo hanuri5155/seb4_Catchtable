@@ -36,7 +36,7 @@ public class UserController {
 //        return "users/signin";
 //    }
 
-    @PostMapping("/signinsignup")
+    @PostMapping("/signup")
     public String signup(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", userDTO);  // 유효성 검사 실패 시 모델에 다시 추가
@@ -53,17 +53,23 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public String login(@ModelAttribute UserDTO userDTO, Model model, HttpSession session) {
-//        UserDTO signinResult = userService.loadUserByUsername(userDTO);
-//        if (signinResult != null) {
-//            // login 성공
-//            session.setAttribute("loggedInUser", signinResult.getUserid());
-//            return "redirect:/";
-//        } else {
-//            // login 실패
-//            return "users/signin";
-//        }
-        return "users/signin";
+    public String login(@Valid @ModelAttribute("user") UserDTO userDTO, Model model, HttpSession session, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", userDTO);  // 유효성 검사 실패 시 모델에 다시 추가
+            return "users/signinsignup";
+        }
+
+        UserDTO signinResult = userService.Signin(userDTO);
+
+        if (signinResult != null) {
+            // login 성공
+            session.setAttribute("loggedInUser", signinResult.getUserid());
+            return "redirect:/";
+        } else {
+            // login 실패
+            return "users/signin";
+        }
+        //return "users/signin";
     }
 
 //    @PostMapping("/signin")

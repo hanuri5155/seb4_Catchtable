@@ -23,7 +23,7 @@ import java.util.Optional;
 // 회원과 관련된 로직을 작성하는 클래스입니다.
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class UserService { // implements UserDetailsService
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -63,22 +63,22 @@ public class UserService {
         }
     }
 
-//    public UserDTO Signin(UserDTO userDTO) throws UsernameNotFoundException {
-//        Optional<UserEntity> byUserid = this.userRepository.findByUserid(userDTO.getUserid());
-//        if (byUserid.isPresent()) {
-//            UserEntity userEntity = byUserid.get();
-//            System.out.println("Received userid: " + userDTO.getUserid());
-//            System.out.println("Received password: " + userDTO.getPassword());
-//            // 비밀번호를 암호화된 형태로 비교
-//            if (!passwordEncoder.matches(userDTO.getPassword(), userEntity.getPassword())) {
-//                throw new BadCredentialsException("비밀번호가 잘못되었습니다.");
-//            } else {
-//                return UserDTO.toUserDTO(userEntity);
-//            }
-//        } else {
-//            throw new UsernameNotFoundException("유저를 찾을 수 없습니다.");
-//        }
-//    }
+    public UserDTO Signin(UserDTO userDTO) throws UsernameNotFoundException {
+        Optional<UserEntity> byUserid = this.userRepository.findByUserid(userDTO.getUserid());
+        if (byUserid.isPresent()) {
+            UserEntity userEntity = byUserid.get();
+            System.out.println("Received userid: " + userDTO.getUserid());
+            System.out.println("Received password: " + userDTO.getPassword());
+            // 비밀번호를 암호화된 형태로 비교
+            if (!passwordEncoder.matches(userDTO.getPassword(), userEntity.getPassword())) {
+                throw new BadCredentialsException("비밀번호가 잘못되었습니다.");
+            } else {
+                return UserDTO.toUserDTO(userEntity);
+            }
+        } else {
+            throw new UsernameNotFoundException("유저를 찾을 수 없습니다.");
+        }
+    }
 
 //    public UserDTO Signin (UserDTO userDTO) {
 //        /*

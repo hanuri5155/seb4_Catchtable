@@ -19,13 +19,12 @@ public class UserDTO {
     // Primitive type 대신 Wrapper Class 를 사용할 것.
     private Long uuid; // 유저 고유 아이디
 
-    @NotEmpty
     private String username;            // 유저 이름
     @NotEmpty
     private String userid;              // 유저 아이디
     @NotEmpty
     private String password;            // 비밀번호
-    @NotEmpty
+
     private String phone_number;        // 전화번호
 
     private UserAuthority authority;    // 유저 권한
