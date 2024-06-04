@@ -1,22 +1,18 @@
 package com.se_b4.catchtable.controller;
 
+import com.se_b4.catchtable.Constant;
+import com.se_b4.catchtable.constants.SessionAttrKey;
 import com.se_b4.catchtable.dto.DiningDTO;
 import com.se_b4.catchtable.dto.ReserveDTO;
 import com.se_b4.catchtable.entity.DiningData;
 import com.se_b4.catchtable.entity.ReserveData;
 import com.se_b4.catchtable.service.ReserveService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -27,89 +23,93 @@ public class ReserveController
     private final ReserveService reserveService;
 
     @GetMapping("/reserve")
-    public String OnReserveStarted(Model _model, HttpSession session, @RequestParam(value = "dining_uid") int dining_uid)
+    public String OnReserveStarted(Model _model, @RequestParam(value = "dining_uid") int dining_uid)
     {
-        String logMessage = String.format("Reserve page #%d requested from user.", dining_uid);
-        System.out.println(logMessage);
+        // String logMessage = String.format("Reserve page #%d requested from user.", dining_uid);
+        // System.out.println(logMessage);
 
         DiningData diningData = reserveService.getDiningData(dining_uid).get(0);
-        DiningDTO diningDTO = DiningDTO.toDTO(diningData);
-        System.out.println(diningData);
+        // System.out.println(diningData);
 
-        ReserveDTO reserveDTO = new ReserveDTO();
-        reserveDTO.setDining_dto(diningDTO);
-        reserveDTO.setReserver_uuid(1);
+        _model.addAttribute("dining_uid", dining_uid);
+        _model.addAttribute("dining_name", diningData.getName());
+        _model.addAttribute("dining_tel", diningData.getTel());
+        _model.addAttribute("dining_address", diningData.getAddress());
+        _model.addAttribute("dining_description", diningData.getDescription());
 
-        session.setAttribute("reserveDTO", reserveDTO);
-        _model.addAttribute("reserveDTO", reserveDTO);
+        _model.addAttribute("reserveDTO", new ReserveDTO());
 
-        return "/reserves/reserve-t";
+        return "/reserves/reserve";
     }
 
     @PostMapping("/try-reserve")
-    public String _OnReserveRequested(@ModelAttribute("reserveDTO") ReserveDTO reserveDTO, HttpSession session)
+    public String OnPurchaseRequested(@ModelAttribute("reserveDTO") ReserveDTO reserveDTO, HttpSession session, @RequestParam("dining_uid") int dining_uid)
     {
-        ReserveDTO sessionReserveDTO = (ReserveDTO) session.getAttribute("reserveDTO");
+        int reserver_uuid = 1; // TODO: 세션에서 사용자 uuid를 가져올 수 있을 때 이 코드를 수정합니다.
+        // int reserver_uuid = (int)session.getAttribute(SessionAttrKey.LOGGED_UUID);
 
-        if(sessionReserveDTO != null)
+        ReserveData reserveData = new ReserveData();
+        reserveData.setReserver_uuid(reserver_uuid);
+        reserveData.setDining_uid(dining_uid);
+        reserveData.setCount_person(reserveDTO.getCount_person());
+        reserveData.setDate(java.sql.Date.valueOf(reserveDTO.getReserve_date()));
+        reserveData.setTime_begin(reserveDTO.getReserve_time());
+
+        reserveDTO.setReserver_uuid(reserver_uuid);
+
+        if(reserveService.tryReserve(reserveData))
         {
-            sessionReserveDTO.setReserve_date(reserveDTO.getReserve_date());
-            sessionReserveDTO.setReserve_time(reserveDTO.getReserve_time());
-            sessionReserveDTO.setCount_person(reserveDTO.getCount_person());
-            // 예약 처리 로직
-            System.out.println(reserveDTO);
+            session.setAttribute("reserveDTO", reserveDTO);
+            return "redirect:/reserves/success";
         }
-
-        return "/reserves/success";
-    }
-
-    @PostMapping("/reserve")
-    public String OnReserveRequested(Model _model, @RequestParam("dining_uid") Long dining_uid)
-    {
-        String logMessage = String.format("Reserve requested from user on dining id #%d.", dining_uid);
-        System.out.println(logMessage);
-
-        _model.addAttribute("dining_uid", dining_uid);
-
-        List<ReserveData> data = reserveService.GetReserveDataByReserverUUID(1L);
-
-        if(data == null)
-            System.out.println("null reserve data");
-        else if(data.size() == 0)
-            System.out.println("0 reserve data");
         else
         {
-            for(int i = 0; i < data.size(); ++i)
-            {
-                System.out.println(data.get(i).toString());
-            }
+            session.setAttribute("reserveDTO", reserveDTO);
+            return "redirect:/reserves/failure";
         }
+    }
 
-        // TEST: 임시 값을 데이터베이스에 삽입합니다.
-        // ReserveData data = new ReserveData();
-        // data.setReserverUUID(1);
-        // data.setCountPerson(6);
-        // data.setTimeBegin(LocalDateTime.now().toLocalTime());
-        // data.setReserveDate(LocalDateTime.now());
-        // data.setDate(Timestamp.valueOf(LocalDateTime.now()));
+    // NOTE: 클래스 다이어그램, 시퀀스 다이어그램과 흐름을 맞추기 위한 PRG 패턴 적용입니다.
+    // NOTE: PRG Pattern == Post-Redirect-Get Pattern.
+    @GetMapping("/success")
+    public String OnReserveSucceed(Model _model, HttpSession session)
+    {
+        ReserveDTO reserveDTO = (ReserveDTO)session.getAttribute("reserveDTO");
 
-        // TODO: Model 클래스에서 값을 가져올 수 있을 때 아래 코드를 활성화합니다.
-        // data.setReserverUUID((int)_model.getAttribute("reserverUUID"));
-        // data.setCountPerson((int)_model.getAttribute("countPerson"));
-        // data.setTimeBegin((LocalTime)_model.getAttribute("timeBegin"));
-        // data.setReserveDate(LocalDateTime.now());
-        // data.setDate((Date)_model.getAttribute("date"));
+        if(reserveDTO == null)
+            return "redirect:/reserves/reserve";
+
+        session.removeAttribute("reserveDTO");
+
+        _model.addAttribute("reserveDTO", reserveDTO);
+
+        // TEST: 디버깅용 로그.
+        int dining_uid = reserveDTO.getDining_uid();
+        String logMessage = String.format("Dining #%d reserve succeed.", dining_uid);
+        System.out.println(logMessage);
 
         return "/reserves/success";
     }
 
-    @GetMapping("/success")
-    public String OnReserveSucceed(Model _model)
+    // NOTE: 클래스 다이어그램, 시퀀스 다이어그램과 흐름을 맞추기 위한 PRG 패턴 적용입니다.
+    // NOTE: PRG Pattern == Post-Redirect-Get Pattern.
+    @GetMapping("/failure")
+    public String OnReserveFailure(Model _model, HttpSession session)
     {
-        int diningId = (int)_model.getAttribute("dining_id");
-        String logMessage = String.format("Dining #%d successfully reserved.", diningId);
+        ReserveDTO reserveDTO = (ReserveDTO)session.getAttribute("reserveDTO");
+
+        if(reserveDTO == null)
+            return "redirect:/reserves/reserve";
+
+        session.removeAttribute("reserveDTO");
+
+        _model.addAttribute("reserveDTO", reserveDTO);
+
+        // TEST: 디버깅용 로그.
+        int dining_uid = reserveDTO.getReserver_uuid();
+        String logMessage = String.format("Dining #%d reserve failed.", dining_uid);
         System.out.println(logMessage);
 
-        return "/reserves/success";
+        return "/reserves/failure";
     }
 }

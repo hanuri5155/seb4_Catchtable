@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -18,4 +20,18 @@ public interface ReserveRepository extends JpaRepository<ReserveData, Integer>
 
     @Query(value = "select * from reserve_entity where reserver_uuid = :reserver_uuid", nativeQuery = true)
     List<ReserveData> getDataByReserverUUID(@Param("reserver_uuid") Long reserver_uuid);
+
+    @Query(value =
+            "select coalesce((sum(count_person) + :reserve_count_person <= :seat_count), 0) " +
+            "from reserve_entity " +
+            "where date = :reserve_date " +
+            "and (timediff(time_begin, :reserve_time_begin) <= '01:00:00' " +
+            "or timediff(:reserve_time_begin, time_begin) <= '01:00:00')"
+            , nativeQuery = true)
+    Integer canReserve(
+            @Param("reserve_count_person") int reserveCountPerson,
+            @Param("seat_count") int seatCount,
+            @Param("reserve_date") Date reserveDate,
+            @Param("reserve_time_begin") LocalTime reserveTimeBegin
+    );
 }

@@ -19,8 +19,7 @@ public class ReserveDTO implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    private DiningDTO dining_dto;
-
+    private int dining_uid;
     private int reserver_uuid;
     private int count_person;
     private LocalDate reserve_date;

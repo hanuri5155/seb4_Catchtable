@@ -2,14 +2,10 @@ package com.se_b4.catchtable.service;
 
 import com.se_b4.catchtable.entity.DiningData;
 import com.se_b4.catchtable.entity.ReserveData;
-import com.se_b4.catchtable.repository.DiningInfoRepository;
 import com.se_b4.catchtable.repository.ReserveRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,10 +15,11 @@ public class ReserveService
     private final ReserveRepository reserveRepository;
 
     private final DiningInfoService diningInfoService;
+    private final PurchaseService purchaseService;
 
-    public List<ReserveData> GetReserveDataByReserverUUID(Long _reserverUUID)
+    // NOTE: 사용자 uuid를 입력하면 해당 사용자의 모든 예약 내역을 반환합니다.
+    public List<ReserveData> getReserveDataByReserverUUID(Long _reserverUUID)
     {
-        // return null;
         return reserveRepository.getDataByReserverUUID(_reserverUUID);
     }
 
@@ -31,16 +28,25 @@ public class ReserveService
         return diningInfoService.getDiningData(_diningUID);
     }
 
-    public void tryReserve(int _reserverUUID, int _diningUID, LocalDateTime _date, int _countPerson)
+    public boolean tryReserve(ReserveData reserveData)
     {
-        ReserveData reserveData = new ReserveData();
+        DiningData diningData = diningInfoService.getDiningData(reserveData.getDining_uid()).get(0);
 
-        reserveData.setReserver_uuid(_reserverUUID);
-        reserveData.setDining_uid(_diningUID);
-        reserveData.setCount_person(_countPerson);
-        reserveData.setDate(Timestamp.valueOf(_date));
-        reserveData.setTime_begin(_date.toLocalTime());
+        boolean canReserve = reserveRepository.canReserve(
+                reserveData.getCount_person(),
+                diningData.getCount_seat(),
+                reserveData.getDate(),
+                reserveData.getTime_begin()
+        ) > 0;
 
-        reserveRepository.save(reserveData);
+        boolean canPurchase = purchaseService.tryPurchase();
+
+        if(canPurchase && canReserve)
+        {
+            reserveRepository.save(reserveData);
+            return true;
+        }
+
+        return false;
     }
 }

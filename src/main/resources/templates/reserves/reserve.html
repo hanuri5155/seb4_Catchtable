@@ -1,14 +1,193 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" dir="ltr">
+<html lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <title>Reserve</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Restaurant Reservation Page</title>
+    <style>
+        .bg-primary {
+            background-color: #303f9f;
+        }
+        .bg-secondary {
+            background-color: #3D4BA5;
+        }
+        .bg-tertiary {
+            background-color: #4A57AB;
+        }
+        .bg-quaternary {
+            background-color: #646FB7;
+        }
+        .text-primary {
+            color: #303f9f;
+        }
+        .text-secondary {
+            color: #3D4BA5;
+        }
+        .text-tertiary {
+            color: #4A57AB;
+        }
+        .text-quaternary {
+            color: #646FB7;
+        }
+        .text-accent {
+            color: #CCCFE7;
+        }
+    </style>
 </head>
-<body>
-    <form th:action method="post">
-        <h2 th:text="'Reserve Dining #' + ${ dining_uid }"></h2>
-        <p>'식당 예약하기' 버튼을 누른 후 인텔리제이의 디버그 콘솔 창의 로그를 확인하세요.</p>
-        <button type="submit" th:href="@{/reserves/reserve(dining_id=${dining_uid})}">식당 예약하기</button>
+
+<body class="bg-gray-100 text-black font-sans">
+
+<div class="max-w-5xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white rounded-lg shadow-lg">
+        <img src="https://placehold.co/600x400" alt="Dish with vegetables, egg, and meat" class="rounded-t-lg">
+        <div class="p-4">
+            <!-- h2 class="text-2xl font-bold mb-2 text-primary">식당 이름</h2 -->
+            <!-- h2 class="text-2xl font-bold mb-2 text-primary" th:text="'식당 이름 #' + ${dining_id}">식당 이름</h2 -->
+            <h2 class="text-2xl font-bold mb-2 text-primary" th:text="${dining_name}">식당 이름</h2>
+            <div class="flex items-center mb-2">
+                <i class="fas fa-phone-alt text-gray-500 mr-2"></i>
+                <span th:text="${dining_tel}" />
+                <!-- span>051-1234-5678</span -->
+            </div>
+            <div class="flex items-center mb-2">
+                <i class="fas fa-map-marker-alt text-gray-500 mr-2"></i>
+                <span th:text="${dining_address}" />
+                <!-- span>부산광역시 부산진구 양광로 176</span -->
+            </div>
+            <div class="flex items-center mb-2">
+                <i class="fas fa-envelope text-gray-500 mr-2"></i>
+                <span th:text="${dining_description}" />
+                <!-- span>스테디셀러인 오색비빔밥을 가성비 있게 즐겨보세요! 비빔밥이 맛있고 사장님이 친절한 집입니다.</span -->
+            </div>
+        </div>
+    </div>
+    <form action="#" th:action="@{/reserves/try-reserve(dining_uid=${dining_uid})}" th:object="${reserveDTO}" method="post">
+    <div class="bg-white rounded-lg shadow-lg p-4">
+        <h2 class="text-xl font-bold mb-4 text-primary">식당 예약하기</h2>
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">날짜</label>
+            <div class="flex items-center border rounded-lg p-2 bg-gray-200">
+                <i class="fas fa-calendar-alt text-gray-500 mr-2"></i>
+                <input th:field="*{reserve_date}" type="date" id="reservationDate" class="w-full bg-gray-200 outline-none">
+                <i class="fas fa-chevron-down text-gray-500 ml-2"></i>
+            </div>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">이용 시작 시간</label>
+            <div class="flex items-center border rounded-lg p-2 bg-gray-200">
+                <i class="fas fa-clock text-gray-500 mr-2"></i>
+                <select th:field="*{reserve_time}" id="usageTime" class="w-full bg-gray-200 outline-none">
+                    <option value="00:00">오전 00:00</option>
+                    <option value="00:30">오전 00:30</option>
+                    <option value="01:00">오전 01:00</option>
+                    <option value="01:30">오전 01:30</option>
+                    <option value="02:00">오전 02:00</option>
+                    <option value="02:30">오전 02:30</option>
+                    <option value="03:00">오전 03:00</option>
+                    <option value="03:30">오전 03:30</option>
+                    <option value="04:00">오전 04:00</option>
+                    <option value="04:30">오전 04:30</option>
+                    <option value="05:00">오전 05:00</option>
+                    <option value="05:30">오전 05:30</option>
+                    <option value="06:00">오전 06:00</option>
+                    <option value="06:30">오전 06:30</option>
+                    <option value="07:00">오전 07:00</option>
+                    <option value="07:30">오전 07:30</option>
+                    <option value="08:00">오전 08:00</option>
+                    <option value="08:30">오전 08:30</option>
+                    <option value="09:00">오전 09:00</option>
+                    <option value="09:30">오전 09:30</option>
+                    <option value="10:00">오전 10:00</option>
+                    <option value="10:30">오전 10:30</option>
+                    <option value="11:00">오전 11:00</option>
+                    <option value="11:30">오전 11:30</option>
+                    <option value="12:00">오후 12:00</option>
+                    <option value="12:30">오후 12:30</option>
+                    <option value="13:00" selected>오후 01:00</option>
+                    <option value="13:30">오후 01:30</option>
+                    <option value="14:00">오후 02:00</option>
+                    <option value="14:30">오후 02:30</option>
+                    <option value="15:00">오후 03:00</option>
+                    <option value="15:30">오후 03:30</option>
+                    <option value="16:00">오후 04:00</option>
+                    <option value="16:30">오후 04:30</option>
+                    <option value="17:00">오후 05:00</option>
+                    <option value="17:30">오후 05:30</option>
+                    <option value="18:00">오후 06:00</option>
+                    <option value="18:30">오후 06:30</option>
+                    <option value="19:00">오후 07:00</option>
+                    <option value="19:30">오후 07:30</option>
+                    <option value="20:00">오후 08:00</option>
+                    <option value="20:30">오후 08:30</option>
+                    <option value="21:00">오후 09:00</option>
+                    <option value="21:30">오후 09:30</option>
+                    <option value="22:00">오후 10:00</option>
+                    <option value="22:30">오후 10:30</option>
+                    <option value="23:00">오후 11:00</option>
+                    <option value="23:30">오후 11:30</option>
+                </select>
+                <i class="fas fa-chevron-down text-gray-500 ml-2"></i>
+            </div>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">인원</label>
+            <div class="flex items-center border rounded-lg p-2 bg-gray-200">
+                <i class="fas fa-user text-gray-500 mr-2"></i>
+                <select th:field="*{count_person}" id="numPeople" class="w-full bg-gray-200 outline-none" onchange="updatePrice()">
+                    <option value="1">1명</option>
+                    <option value="2">2명</option>
+                    <option value="3" selected>3명</option>
+                    <option value="4">4명</option>
+                    <option value="5">5명</option>
+                    <option value="6">6명</option>
+                </select>
+                <i class="fas fa-chevron-down text-gray-500 ml-2"></i>
+            </div>
+        </div>
+        <div class="flex justify-between items-center">
+            <a href="#" class="text-primary">로그인하기</a>
+            <button type="submit" id="paymentButton" class="bg-primary text-white px-4 py-2 rounded-lg">결제 (15000원)</button>
+        </div>
+    </div>
     </form>
+</div>
+
+<script>
+    function updatePrice() {
+        const numPeople = document.getElementById('numPeople').value;
+        const pricePerPerson = 5000;
+        const totalPrice = numPeople * pricePerPerson;
+        document.getElementById('paymentButton').innerText = `결제 (${totalPrice}원)`;
+    }
+
+    function setDateConstraints() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+
+        const minDate = `${yyyy}-${mm}-${dd}`;
+        const maxDate = new Date();
+        maxDate.setDate(today.getDate() + 14);
+        const maxYyyy = maxDate.getFullYear();
+        const maxMm = String(maxDate.getMonth() + 1).padStart(2, '0');
+        const maxDd = String(maxDate.getDate()).padStart(2, '0');
+        const maxDateStr = `${maxYyyy}-${maxMm}-${maxDd}`;
+
+        document.getElementById('reservationDate').setAttribute('min', minDate);
+        document.getElementById('reservationDate').setAttribute('max', maxDateStr);
+    }
+
+    // Initialize the date constraints and price on page load
+    document.addEventListener('DOMContentLoaded', (event) => {
+        setDateConstraints();
+        updatePrice();
+    });
+</script>
+
 </body>
+
 </html>
