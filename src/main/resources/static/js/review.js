@@ -1,4 +1,5 @@
 const stars = document.querySelectorAll('.star');
+const ratingInput = document.getElementById('rating_input');
 
 stars.forEach((star, index) => {
     star.addEventListener('click', () => {
@@ -9,6 +10,8 @@ stars.forEach((star, index) => {
                     s.innerHTML = '&#9734;'; // Unicode for empty star
                 }
             });
+
+            ratingInput.value = index;
         } else {
             stars.forEach((s, i) => {
                 if (i <= index) {
@@ -16,9 +19,9 @@ stars.forEach((star, index) => {
                     s.innerHTML = '&#9733;'; // Unicode for filled star
                 }
             });
+
+            ratingInput.value = index + 1;
         }
-        const ratingInput = document.getElementById('rating_input');
-        ratingInput.value = index + 1;
     });
 });
 
@@ -54,11 +57,29 @@ reviewText.addEventListener('input', function() {
     this.style.height = 'auto';
     this.style.height = (this.scrollHeight) + 'px';
 });
-
+/*
 document.querySelector('.submit-btn').addEventListener('click', function() {
     if (reviewText.value.length < 15) {
         alert('리뷰는 최소 15자 이상 작성해주세요.');
     } else {
         alert('리뷰가 등록되었습니다!');
+    }
+});
+*/
+document.getElementById("reviewForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if(ratingInput.value < 1 || ratingInput > 5)
+    {
+        alert("별점을 1~5 사이의 값으로 매겨주세요.");
+    }
+    else if(!reviewText.value.trim() || reviewText.value.length < 15)
+    {
+        alert("리뷰는 최소 15자 이상 작성해주세요.");
+    }
+    else
+    {
+        alert("리뷰가 등록되었습니다!");
+        event.target.submit();
     }
 });

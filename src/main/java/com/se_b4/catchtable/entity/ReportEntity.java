@@ -1,6 +1,7 @@
 package com.se_b4.catchtable.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,12 @@ public class ReportEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
 
+    @NotNull
     private int dining_uid;
+
+    @NotNull
+    private int reporter_uuid;
+
     private boolean illegal_service;
     private boolean poor_hygiene;
     private boolean unkind;

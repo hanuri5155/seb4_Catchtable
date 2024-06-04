@@ -3,7 +3,7 @@ package com.se_b4.catchtable.controller;
 import com.se_b4.catchtable.dto.ReviewDTO;
 import com.se_b4.catchtable.entity.ReviewEntity;
 import com.se_b4.catchtable.service.ReviewService;
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,15 +26,16 @@ public class ReviewController
     }
 
     @PostMapping("")
-    public String OnReviewSubmitted(@ModelAttribute("reviewDTO") ReviewDTO reviewDTO, @RequestParam("dining_uid") int dining_uid)
+    public String OnReviewSubmitted(@ModelAttribute("reviewDTO") ReviewDTO reviewDTO, HttpSession session, @RequestParam("dining_uid") int dining_uid)
     {
         int reviewer_uuid = 1; // TODO: 세션에서 사용자 uuid를 가져올 수 있을 때 이 코드를 수정합니다.
+        // int reviewer_uuid = (int)session.getAttribute("loggedUuid");
 
         ReviewEntity reviewEntity = new ReviewEntity();
         reviewEntity.setDining_uid(dining_uid);
         reviewEntity.setReviewer_uuid(reviewer_uuid);
         reviewEntity.setDescription(reviewDTO.getDescription());
-        reviewEntity.setStar(reviewDTO.getRating());
+        reviewEntity.setRating(reviewDTO.getRating());
 
         if(reviewService.ReviewRegistration(reviewEntity))
         {

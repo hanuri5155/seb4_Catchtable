@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<form action="#" th:action="@{/reviews(dining_uid=${dining_uid})}" th:object="${reviewDTO}" method="post">
+<form action="#" th:action="@{/reviews(dining_uid=${dining_uid})}" th:object="${reviewDTO}" method="post" id="reviewForm">
 <div class="container">
     <header>
         <a href="#" class="back-btn">←</a>
@@ -36,7 +36,7 @@
     <div class="review-instructions">
         리뷰는 최소 15자 이상 작성해주세요. 사진 첨부는 직접 촬영한 것만 가능하며 욕설, 비속어가 포함된 리뷰는 사전 고지 없이 삭제 될 수 있습니다.
     </div>
-    <button class="submit-btn">등록하기</button>
+    <button type="submit" class="submit-btn">등록하기</button>
 </div>
 </form>
 </body>

@@ -14,8 +14,8 @@ public class ReviewEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
 
-    private String description;
-    private int star;
-    private int reviewer_uuid;
     private int dining_uid;
+    private int reviewer_uuid;
+    private int rating;
+    private String description;
 }
