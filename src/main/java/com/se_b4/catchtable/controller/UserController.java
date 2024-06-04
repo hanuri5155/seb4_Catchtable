@@ -64,11 +64,10 @@ public class UserController {
         }
     }
 
-
-//    // 로그아웃
-//    @PostMapping("/logout")
-//    public String logout(HttpSession session) {
-//        session.invalidate();
-//        return "redirect:/";
-//    }
+    // 로그아웃
+    @GetMapping("/signout")
+    public String signout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 }

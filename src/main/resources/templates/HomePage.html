@@ -10,8 +10,14 @@
 session 값 확인(uuid): <p th:text="${session.loggedUuid}"></p>
 session 값 확인(userid): <p th:text="${session.loggedUserid}"></p>
 
-<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/users/signinsignup}"><b>LOGIN</b></a>
-<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/users/signout}"><b>LOGOUT</b></a>
+<div th:if="${session.loggedUuid != null}">
+    <a class="nav-link" th:href="@{/users/signout}"><b>LOGOUT</b></a>
+</div>
+
+<div th:if="${session.loggedUuid == null}">
+    <a class="nav-link" th:href="@{/users/signin}"><b>LOGIN</b></a>
+</div>
+
 <a class="nav-link" th:href="@{/owners/BusinessPage}"><b>식당 사업자 메인 페이지</b></a>
 <a class="nav-link" th:href="@{/admins/AdminPage}"><b>플랫폼 관리자 메인 페이지</b></a>
 <a class="nav-link" th:href="@{/admins/BusinessApprovalPage}"><b>사업장 등록 승인 대기 목록</b></a>

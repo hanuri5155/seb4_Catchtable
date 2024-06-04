@@ -28,7 +28,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorizeRequests) ->
                 authorizeRequests.anyRequest().permitAll() // 시작 기본 스프링 로그인 페이지 제거
         );
-//        http
+        //http
 //                .formLogin(formLogin -> formLogin
 //                        .loginPage("/users/signinsignup")
 //                        .defaultSuccessUrl("/")
