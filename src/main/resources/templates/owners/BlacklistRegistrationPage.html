@@ -30,6 +30,16 @@
     <li id="dash_dashboard"><a class="waves-effect" th:href="@{/owners/BusinessPage}"><b>대시보드</b></a></li>
 
     <ul class="collapsible" data-collapsible="accordion">
+        <li id="dash_business">
+            <div id="dash_business_header" class="collapsible-header waves-effect"><b>사업장 관리</b></div>
+            <div id="dash_business_body" class="collapsible-body">
+                <ul>
+                    <li id="business_seller">
+                        <a class="waves-effect" style="text-decoration: none;" th:href="@{/owners/BusinessRegistrationPage}">사업장 등록</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
         <li id="dash_users">
             <div id="dash_users_header" class="collapsible-header waves-effect"><b>식당 관리</b></div>
             <div id="dash_users_body" class="collapsible-body">

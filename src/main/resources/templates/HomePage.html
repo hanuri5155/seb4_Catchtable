@@ -7,7 +7,9 @@
 <body>
 소프트웨어 공학 B4조
 <p></p>
-session 값 확인: <p th:text="${session.loggedInUser}"></p>
+session 값 확인(uuid): <p th:text="${session.loggedUuid}"></p>
+session 값 확인(userid): <p th:text="${session.loggedUserid}"></p>
+
 <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/users/signinsignup}"><b>LOGIN</b></a>
 <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/users/signout}"><b>LOGOUT</b></a>
 <a class="nav-link" th:href="@{/owners/BusinessPage}"><b>식당 사업자 메인 페이지</b></a>

@@ -42,5 +42,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
         alert('필수 항목을 입력하시기 바랍니다');
         event.preventDefault();
     }
+
+
 });
 

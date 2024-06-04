@@ -1,9 +1,6 @@
 package com.se_b4.catchtable.dto;
 
-import java.time.LocalDateTime;
-import com.se_b4.catchtable.authority.UserAuthority;
 import com.se_b4.catchtable.entity.OwnerEntity;
-import com.se_b4.catchtable.entity.UserEntity;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
