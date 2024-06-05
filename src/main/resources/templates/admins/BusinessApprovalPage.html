@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
     <!-- jQuery 스크립트 추가 -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <!-- Materialize 스크립트 추가 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
     <link rel="stylesheet" th:href="@{/css/management.css}">
     <title>AdminBusinessApprovalPage</title>
 </head>
@@ -127,7 +128,7 @@
                         <tr th:each="details, iterStat : ${businessAuthEntityList}">
                             <td th:text="${iterStat.index + 1}"></td>
                             <td>
-                                <a class="modal-trigger" href="#modal1" th:data-title="|${details.ouuid}번 사업자가 사업장을 제출하였습니다.|" th:data-uuid="${details.ouuid}" th:data-pdf-path="@{'/files/' + ${#strings.substring(details.businessDetailsFile, details.businessDetailsFile.lastIndexOf('/') + 1)} }">
+                                <a class="modal-trigger" href="#modal1" th:data-title="|${details.ouuid}번 사업자가 사업장을 제출하였습니다.|" th:data-uuid="${details.ouuid}" th:data-pdf-path="${details.businessDetailsFile}">
                                     <span th:text="|${details.ouuid}번 사업자가 사업장을 제출하였습니다.|"></span>
                                 </a>
                             </td>
@@ -290,19 +291,21 @@
     $(document).ready(function () {
         $('.modal-trigger').leanModal();
 
-        // Add click event listener to modal triggers
+        //Add click event listener to modal triggers
         $('.modal-trigger').on('click', function() {
             var title = $(this).data('title');
             //var uuid = $(this).data('uuid');
             var pdfPath = $(this).data('pdf-path');
-            var encodedPdfPath = encodeURI(pdfPath); // 인코딩
+
 
             $('#modalTitle').text(title);
             //$('#modalContent').text('UUID: ' + uuid + '에 대한 추가 정보를 여기에 표시합니다.');
 
             // PDF 뷰어 및 다운로드 링크 업데이트
-            $('#pdfViewer').attr('src', '/files/' + encodedPdfPath);
-            $('#pdfDownloadLink').attr('href', encodedPdfPath);
+            var fullPath = '/file/' + pdfPath;
+            console.log("Full PDF Path: ", fullPath); // Log the full path for debugging
+            $('#pdfViewer').attr('src', fullPath);
+            $('#pdfDownloadLink').attr('href', '/download/' + pdfPath);
 
             $('#modal1').openModal();
         });

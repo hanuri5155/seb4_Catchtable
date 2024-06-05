@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/files/**")
-                .addResourceLocations("file:///G:/Projects/Deu/3-junior/SE/seb4_Catchtable/seb4_Catchtable/src/main/resources/static/file/");
+        registry.addResourceHandler("/file/**")
+                .addResourceLocations("classpath:/static/file/");
     }
 }

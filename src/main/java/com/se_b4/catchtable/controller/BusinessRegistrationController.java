@@ -3,7 +3,6 @@ package com.se_b4.catchtable.controller;
 import com.se_b4.catchtable.dto.BusinessAuthDTO;
 import com.se_b4.catchtable.service.BusinessRegistrationService;
 import com.se_b4.catchtable.service.FileStoreService;
-import com.se_b4.catchtable.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +47,7 @@ public class BusinessRegistrationController {
 
         businessRegistrationService.saveBusinessDetails(
                 loggedUuid,         // 세션으로 전달 받은 uuid
-                businessDetailsFile // fileStoreService.storeFile(file) 로 파일 경로 반환값
+                businessDetailsFile // fileStoreService.storeFile(file) 로 서버에 저장하는 파일명 반환
         );
         model.addAttribute("successMessage", "파일 업로드가 성공적으로 완료되었습니다.");
         model.addAttribute("businessDetailsFile", businessDetailsFile); // 로그 확인용

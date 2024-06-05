@@ -31,7 +31,7 @@ public class FileStoreService {
         String storeFileName = createStoreFileName(originalFilename); // 서버에 저장하는 파일명(uuid+.+확장자명)
 
         multipartFile.transferTo(new File(getFullPath(storeFileName))); // 디렉토리에 파일이름이 합쳐진 것이 File로 만들어지고
-        return getFullPath(storeFileName); // 파일경로 반환
+        return storeFileName; // 서버에 저장하는 파일명 반환
     }
 
     private String createStoreFileName(String originalFilename) {
