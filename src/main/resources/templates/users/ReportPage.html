@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>사업장 신고 등록하기</title>
+    <link rel="stylesheet" th:href="@{/css/report.css}">
+</head>
+
+<body>
+<div class="container">
+    <h1>사업장 신고 등록하기</h1>
+    <form id="reportForm">
+        <div class="checkbox-group">
+            <label>
+                <input
+                        type="checkbox"
+                        name="report-type"
+                        value="불법 영업"
+                        class="report-checkbox"
+                />
+                불법 영업
+            </label>
+            <label>
+                <input
+                        type="checkbox"
+                        name="report-type"
+                        value="위생 불량"
+                        class="report-checkbox"
+                />
+                위생 불량
+            </label>
+            <label>
+                <input
+                        type="checkbox"
+                        name="report-type"
+                        value="불친절"
+                        class="report-checkbox"
+                />
+                불친절
+            </label>
+            <label>
+                <input
+                        type="checkbox"
+                        name="report-type"
+                        value="기타"
+                        class="report-checkbox"
+                />
+                기타
+            </label>
+        </div>
+        <div class="textarea-group">
+            <label for="report-reason">신고 사유:</label>
+            <textarea
+                    id="report-reason"
+                    name="report-reason"
+                    rows="4"
+                    disabled
+            ></textarea>
+        </div>
+        <button type="submit">신고하기</button>
+    </form>
+</div>
+</body>
+<script th:src="@{/js/report.js}"></script>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리뷰 쓰기</title>
+    <link rel="stylesheet" th:href="@{/css/review.css}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <a href="#" class="back-btn">←</a>
+        <h1>리뷰 쓰기</h1>
+    </header>
+    <div class="rating">
+        <span class="star" data-value="1">&#9734;</span>
+        <span class="star" data-value="2">&#9734;</span>
+        <span class="star" data-value="3">&#9734;</span>
+        <span class="star" data-value="4">&#9734;</span>
+        <span class="star" data-value="5">&#9734;</span>
+    </div>
+    <div class="photo-upload">
+        <input type="file" id="photo" accept="image/*" style="display: none;">
+        <button class="upload-btn" id="upload-btn" onclick="document.getElementById('photo').click();">사진첨부</button>
+        <div id="photo-preview"></div>
+    </div>
+    <div class="review-text">
+        <textarea id="review" placeholder="리뷰를 작성해주세요 (최소 15자 이상)" rows="5"></textarea>
+    </div>
+    <div class="review-instructions">
+        리뷰는 최소 15자 이상 작성해주세요. 사진 첨부는 직접 촬영한 것만 가능하며 욕설, 비속어가 포함된 리뷰는 사전 고지 없이 삭제 될 수 있습니다.
+    </div>
+    <button class="submit-btn">등록하기</button>
+</div>
+</body>
+<script th:src="@{/js/review.js}"></script>
+</html>

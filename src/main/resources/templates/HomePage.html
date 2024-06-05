@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+소프트웨어 공학 B4조
+<p></p>
+session 값 확인(uuid): <p th:text="${session.loggedUuid}"></p>
+session 값 확인(userid): <p th:text="${session.loggedUserid}"></p>
+
+<div th:if="${session.loggedUuid != null}">
+    <a class="nav-link" th:href="@{/users/signout}"><b>LOGOUT</b></a>
+</div>
+
+<div th:if="${session.loggedUuid == null}">
+    <a class="nav-link" th:href="@{/users/signinsignup}"><b>LOGIN</b></a>
+</div>
+
+<a class="nav-link" th:href="@{/owners/BusinessPage}"><b>식당 사업자 메인 페이지</b></a>
+<a class="nav-link" th:href="@{/admins/AdminPage}"><b>플랫폼 관리자 메인 페이지</b></a>
+<a class="nav-link" th:href="@{/admins/BusinessApprovalPage}"><b>사업장 등록 승인 대기 목록</b></a>
+<a class="nav-link" th:href="@{/users/ReviewPage}"><b>리뷰 페이지</b></a>
+<a class="nav-link" th:href="@{/users/DiningPageBase}"><b>식당 상세 페이지</b></a>
+<a class="nav-link" th:href="@{/users/ReportPage}"><b>식당 신고 페이지</b></a>
+</body>
+</html>

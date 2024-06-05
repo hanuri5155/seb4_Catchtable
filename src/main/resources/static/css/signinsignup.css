@@ -221,3 +221,20 @@ button.ghost {
 .ml-4 {
     margin-left: 1rem; /* Adds larger spacing between items */
 }
+.form-check {
+    display: flex;
+    align-items: center;
+}
+
+.label-text {
+    margin-right: 1rem; /* Adjust spacing as needed */
+    margin-left: 1rem;
+}
+
+.form-check-input {
+    margin-left: 0.5rem;
+}
+
+.text-muted{
+    color: #8c8c8c;
+}
