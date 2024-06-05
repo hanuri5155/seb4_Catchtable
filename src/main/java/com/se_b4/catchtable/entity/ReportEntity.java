@@ -19,7 +19,7 @@ public class ReportEntity
     private int dining_uid;
 
     @NotNull
-    private int reporter_uuid;
+    private Long reporter_uuid;
 
     private boolean illegal_service;
     private boolean poor_hygiene;

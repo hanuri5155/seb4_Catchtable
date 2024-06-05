@@ -28,25 +28,29 @@ public class ReserveService
         return diningInfoService.getDiningData(_diningUID);
     }
 
-    public boolean tryReserve(ReserveData reserveData)
+    public int tryReserve(ReserveData reserveData)
     {
         DiningData diningData = diningInfoService.getDiningData(reserveData.getDining_uid()).get(0);
 
         boolean canReserve = reserveRepository.canReserve(
                 reserveData.getCount_person(),
                 diningData.getCount_seat(),
+                diningData.getUid(),
                 reserveData.getDate(),
                 reserveData.getTime_begin()
         ) > 0;
 
         boolean canPurchase = purchaseService.tryPurchase();
 
-        if(canPurchase && canReserve)
+        int returnFlags = 0;
+        returnFlags |= canPurchase ? 1 : 0;
+        returnFlags |= canReserve ? 2 : 0;
+
+        if(returnFlags == 3)
         {
             reserveRepository.save(reserveData);
-            return true;
         }
 
-        return false;
+        return returnFlags;
     }
 }

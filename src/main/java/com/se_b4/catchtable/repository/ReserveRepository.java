@@ -22,15 +22,17 @@ public interface ReserveRepository extends JpaRepository<ReserveData, Integer>
     List<ReserveData> getDataByReserverUUID(@Param("reserver_uuid") Long reserver_uuid);
 
     @Query(value =
-            "select coalesce((sum(count_person) + :reserve_count_person <= :seat_count), 0) " +
+            "select coalesce((sum(count_person) + :reserve_count_person <= :seat_count), 1) " +
             "from reserve_entity " +
             "where date = :reserve_date " +
-            "and (timediff(time_begin, :reserve_time_begin) <= '01:00:00' " +
-            "or timediff(:reserve_time_begin, time_begin) <= '01:00:00')"
+            "and dining_uid = :dining_uid " +
+            "and timediff(time_begin, :reserve_time_begin) <= '01:00:00' " +
+            "and timediff(:reserve_time_begin, time_begin) <= '01:00:00'"
             , nativeQuery = true)
     Integer canReserve(
             @Param("reserve_count_person") int reserveCountPerson,
             @Param("seat_count") int seatCount,
+            @Param("dining_uid") int diningUid,
             @Param("reserve_date") Date reserveDate,
             @Param("reserve_time_begin") LocalTime reserveTimeBegin
     );

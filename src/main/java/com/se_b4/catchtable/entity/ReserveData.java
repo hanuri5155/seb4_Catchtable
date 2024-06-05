@@ -20,7 +20,7 @@ public class ReserveData
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int uid;
 
-    private int reserver_uuid;
+    private Long reserver_uuid;
     private int dining_uid;
     private Date date;
     private LocalTime time_begin;

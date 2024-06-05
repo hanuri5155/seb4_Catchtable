@@ -15,7 +15,7 @@ public class ReviewEntity
     private Long uid;
 
     private int dining_uid;
-    private int reviewer_uuid;
+    private Long reviewer_uuid;
     private int rating;
     private String description;
 }

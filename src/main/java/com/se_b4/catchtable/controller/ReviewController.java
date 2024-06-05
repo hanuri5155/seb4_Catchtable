@@ -1,5 +1,6 @@
 package com.se_b4.catchtable.controller;
 
+import com.se_b4.catchtable.constants.SessionAttrKey;
 import com.se_b4.catchtable.dto.ReviewDTO;
 import com.se_b4.catchtable.entity.ReviewEntity;
 import com.se_b4.catchtable.service.ReviewService;
@@ -28,8 +29,7 @@ public class ReviewController
     @PostMapping("")
     public String OnReviewSubmitted(@ModelAttribute("reviewDTO") ReviewDTO reviewDTO, HttpSession session, @RequestParam("dining_uid") int dining_uid)
     {
-        int reviewer_uuid = 1; // TODO: 세션에서 사용자 uuid를 가져올 수 있을 때 이 코드를 수정합니다.
-        // int reviewer_uuid = (int)session.getAttribute("loggedUuid");
+        Long reviewer_uuid = (Long)session.getAttribute(SessionAttrKey.LOGGED_UUID);
 
         ReviewEntity reviewEntity = new ReviewEntity();
         reviewEntity.setDining_uid(dining_uid);

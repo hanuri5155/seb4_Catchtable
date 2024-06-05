@@ -1,5 +1,6 @@
 package com.se_b4.catchtable.controller;
 
+import com.se_b4.catchtable.constants.SessionAttrKey;
 import com.se_b4.catchtable.dto.ReportDTO;
 import com.se_b4.catchtable.entity.ReportEntity;
 import com.se_b4.catchtable.service.ReportService;
@@ -28,8 +29,7 @@ public class ReportController
     @PostMapping("")
     public String OnReportSubmitted(@ModelAttribute("reportDTO") ReportDTO reportDTO, HttpSession session, @RequestParam("dining_uid") int dining_uid)
     {
-        int reporter_uuid = 1; // TODO: 세션에서 사용자 uuid를 가져올 수 있을 때 이 코드를 수정합니다.
-        // int reporter_uuid = (int)session.getAttribute("loggedUuid");
+        Long reporter_uuid = (Long)session.getAttribute(SessionAttrKey.LOGGED_UUID);
 
         ReportEntity reportEntity = new ReportEntity();
         reportEntity.setDining_uid(dining_uid);

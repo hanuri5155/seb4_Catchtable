@@ -1,8 +1,6 @@
 package com.se_b4.catchtable.controller;
 
-import com.se_b4.catchtable.Constant;
 import com.se_b4.catchtable.constants.SessionAttrKey;
-import com.se_b4.catchtable.dto.DiningDTO;
 import com.se_b4.catchtable.dto.ReserveDTO;
 import com.se_b4.catchtable.entity.DiningData;
 import com.se_b4.catchtable.entity.ReserveData;
@@ -23,7 +21,7 @@ public class ReserveController
     private final ReserveService reserveService;
 
     @GetMapping("/reserve")
-    public String OnReserveStarted(Model _model, @RequestParam(value = "dining_uid") int dining_uid)
+    public String OnReserveStarted(Model _model, HttpSession session, @RequestParam(value = "dining_uid") int dining_uid)
     {
         // String logMessage = String.format("Reserve page #%d requested from user.", dining_uid);
         // System.out.println(logMessage);
@@ -45,8 +43,7 @@ public class ReserveController
     @PostMapping("/try-reserve")
     public String OnPurchaseRequested(@ModelAttribute("reserveDTO") ReserveDTO reserveDTO, HttpSession session, @RequestParam("dining_uid") int dining_uid)
     {
-        int reserver_uuid = 1; // TODO: 세션에서 사용자 uuid를 가져올 수 있을 때 이 코드를 수정합니다.
-        // int reserver_uuid = (int)session.getAttribute(SessionAttrKey.LOGGED_UUID);
+        Long reserver_uuid = (Long)session.getAttribute("loggedUuid");
 
         ReserveData reserveData = new ReserveData();
         reserveData.setReserver_uuid(reserver_uuid);
@@ -57,7 +54,11 @@ public class ReserveController
 
         reserveDTO.setReserver_uuid(reserver_uuid);
 
-        if(reserveService.tryReserve(reserveData))
+        int canReserveFlags = reserveService.tryReserve(reserveData);
+        reserveDTO.setCanPurchase((canReserveFlags & 1) > 0);
+        reserveDTO.setCanReserve((canReserveFlags & 2) > 0);
+
+        if(canReserveFlags == 3)
         {
             session.setAttribute("reserveDTO", reserveDTO);
             return "redirect:/reserves/success";
@@ -106,7 +107,7 @@ public class ReserveController
         _model.addAttribute("reserveDTO", reserveDTO);
 
         // TEST: 디버깅용 로그.
-        int dining_uid = reserveDTO.getReserver_uuid();
+        int dining_uid = reserveDTO.getDining_uid();
         String logMessage = String.format("Dining #%d reserve failed.", dining_uid);
         System.out.println(logMessage);
 
