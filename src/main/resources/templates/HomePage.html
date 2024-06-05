@@ -15,7 +15,7 @@ session 값 확인(userid): <p th:text="${session.loggedUserid}"></p>
 </div>
 
 <div th:if="${session.loggedUuid == null}">
-    <a class="nav-link" th:href="@{/users/signin}"><b>LOGIN</b></a>
+    <a class="nav-link" th:href="@{/users/signinsignup}"><b>LOGIN</b></a>
 </div>
 
 <a class="nav-link" th:href="@{/owners/BusinessPage}"><b>식당 사업자 메인 페이지</b></a>

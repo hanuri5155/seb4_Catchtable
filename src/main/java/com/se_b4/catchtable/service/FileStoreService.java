@@ -21,20 +21,6 @@ public class FileStoreService {
         return fileDir + filename; // 디렉토리에 파일이름이 합쳐짐
     }
 
-//    // 루프를 돌면서 multipartFile 이 비어있지 않으면 실행하여 storeFileResult 에 넣어서 결과 반환
-//    public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException { // 여러 개 업로드시 사용
-//        List<UploadFile> storeFileResult = new ArrayList<>(); // 업로드 파일이 계속 생성이 되기 때문에 담아줘야 함
-//        for (MultipartFile multipartFile : multipartFiles) {
-//            if (!multipartFile.isEmpty()) { // multipartFile 이 비어있지 않으면!
-//                storeFileResult.add(storeFile(multipartFile));
-//                // 위 코드를 두줄로 하면
-//                UploadFile uploadFile = storeFile(multipartFile);
-//                storeFileResult.add(uploadFile);
-//            }
-//        }
-//        return storeFileResult;
-//    }
-
     // MultipartFile을 받아서 파일을 저장한 다음에 파일 경로 반환
     public String storeFile(MultipartFile multipartFile) throws IOException { // 한 개 업로드
         if (multipartFile.isEmpty()) {
@@ -59,3 +45,16 @@ public class FileStoreService {
         return originalFilename.substring(pos + 1); // . 다음에 있는 확장자명 꺼냄
     }
 }
+//    // 루프를 돌면서 multipartFile 이 비어있지 않으면 실행하여 storeFileResult 에 넣어서 결과 반환
+//    public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException { // 여러 개 업로드시 사용
+//        List<UploadFile> storeFileResult = new ArrayList<>(); // 업로드 파일이 계속 생성이 되기 때문에 담아줘야 함
+//        for (MultipartFile multipartFile : multipartFiles) {
+//            if (!multipartFile.isEmpty()) { // multipartFile 이 비어있지 않으면!
+//                storeFileResult.add(storeFile(multipartFile));
+//                // 위 코드를 두줄로 하면
+//                UploadFile uploadFile = storeFile(multipartFile);
+//                storeFileResult.add(uploadFile);
+//            }
+//        }
+//        return storeFileResult;
+//    }

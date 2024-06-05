@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" dir="ltr"
-      xmlns="http://www.w3.org/1999/html">
+<html dir="ltr" lang="en" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- jQuery 스크립트 추가 -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <!-- Materialize 스크립트 추가 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/management.css}">
-    <!--    <link rel="stylesheet" th:href="@{/css/signinsignup.css}">-->
-    <title>ownerMain</title>
+    <title>AdminBusinessApprovalPage</title>
 </head>
-<body >
+<body>
 
 <ul id="slide-out" class="side-nav fixed z-depth-2">
     <li class="center no-padding">
@@ -30,7 +28,7 @@
         </div>
     </li>
 
-    <li id="dash_dashboard"><a class="waves-effect" href="#!"><b>대시보드</b></a></li>
+    <li id="dash_dashboard"><a class="waves-effect" th:href="@{/admins/AdminPage}"><b>대시보드</b></a></li>
 
     <ul class="collapsible" data-collapsible="accordion">
         <li id="dash_users">
@@ -50,7 +48,7 @@
                 <ul>
                     <li id="products_product">
                         <a class="waves-effect" style="text-decoration: none;" href="#!">사업자 정보</a>
-                        <a class="waves-effect" style="text-decoration: none;" href="#!">사업장 등록 승인 대기</a>
+                        <a class="waves-effect" style="text-decoration: none;" th:href="@{/admins/BusinessApprovalPage}">사업장 등록 승인 대기</a>
                     </li>
                 </ul>
             </div>
@@ -81,176 +79,183 @@
 
     <nav class="indigo" role="navigation">
         <div class="nav-wrapper">
-            <a data-activates="slide-out" class="button-collapse show-on-" href="#!"><img style="margin-top: 17px; margin-left: 5px;" src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463989873/smaller-main-logo_3_bm40iv.gif" /></a>
+            <a class="button-collapse show-on-" data-activates="slide-out" href="#!"><img
+                    src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463989873/smaller-main-logo_3_bm40iv.gif"
+                    style="margin-top: 17px; margin-left: 5px;"/></a>
 
             <ul class="right hide-on-med-and-down">
                 <li>
-                    <a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a>
+                    <a class='right dropdown-button' data-activates='user_dropdown' href=''><i class=' material-icons'>account_circle</i></a>
                 </li>
             </ul>
 
-            <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+            <a class="button-collapse" data-activates="slide-out" href="#"><i class="mdi-navigation-menu"></i></a>
         </div>
     </nav>
 
     <nav>
         <div class="nav-wrapper indigo darken-2">
-            <a style="margin-left: 20px;" class="breadcrumb" href="#!">식당 사업자</a>
-            <a class="breadcrumb" href="#!">블랙리스트 관리</a>
-            <a class="breadcrumb" href="#!">블랙리스트 등록</a>
+            <a class="breadcrumb" href="#!" style="margin-left: 20px;">플랫폼 관리자</a>
+            <a class="breadcrumb" href="#!">사업자 관리</a>
+            <a class="breadcrumb" href="#!">사업장 등록 승인 대기</a>
 
-            <div style="margin-right: 20px;" id="timestamp" class="right"></div>
+            <div class="right" id="timestamp" style="margin-right: 20px;"></div>
         </div>
     </nav>
 </header>
 
-<main class="p-8">
-    <div class="container mx-auto">
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <div class="row">
-                <div class="col s12">
-                    <div style="padding: 35px;" align="center" class="card">
-                        <div class="row">
-                            <div class="left card-title">
-                                <b>식당 사업자 등록</b>
-                            </div>
-                        </div>
-                        <!-- 게시판 추가 -->
-                        <div class="row">
-                            <table class="bordered highlight responsive-table">
-                                <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>제목</th>
-                                    <th>글쓴이</th>
-                                    <th>작성시간</th>
-                                    <th>좋아요</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>10</td>
-                                    <td><a href="#modal1" class="modal-trigger">네이버 지도(v5) 임베드</a></td>
-                                    <td>아임웹</td>
-                                    <td>2019-12-17</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td><a href="#modal1" class="modal-trigger">제목</a></td>
-                                    <td>아임웹</td>
-                                    <td>2019-12-16</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td><a href="#modal1" class="modal-trigger">구글 지도 게시물에 임베드 하기</a></td>
-                                    <td>아임웹</td>
-                                    <td>2019-12-16</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td><a href="#modal1" class="modal-trigger">아이폰 7 플러스</a></td>
-                                    <td>아임웹</td>
-                                    <td>2018-05-14</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td><a href="#modal1" class="modal-trigger">분위기 최고네요~!</a></td>
-                                    <td>아임웹</td>
-                                    <td>2018-04-17</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><a href="#modal1" class="modal-trigger">진짜로 갑니다~~</a></td>
-                                    <td>아임웹</td>
-                                    <td>2018-04-17</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><a href="#modal1" class="modal-trigger">탭 메뉴 이미지</a></td>
-                                    <td>아임웹</td>
-                                    <td>2017-12-06</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><a href="#modal1" class="modal-trigger">응원합니다!</a></td>
-                                    <td>아임웹</td>
-                                    <td>2017-11-20</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><a href="#modal1" class="modal-trigger">이번엔 가즈아아아아아아아아!</a></td>
-                                    <td>아임웹</td>
-                                    <td>2017-11-20</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td><a href="#modal1" class="modal-trigger">제목만 보여주기!</a></td>
-                                    <td>아임웹</td>
-                                    <td>2017-11-20</td>
-                                    <td>0</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- 게시판 끝 -->
+<main>
+    <div class="row">
+        <div class="col s12">
+            <div align="center" class="card" style="padding: 35px;">
+                <div class="row">
+                    <div class="left card-title">
+                        <b>식당 사업자 등록</b>
                     </div>
                 </div>
+                <!-- 게시판 추가 -->
+                <div class="row">
+                    <table class="bordered highlight responsive-table">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>제목</th>
+                            <th>사업자UUID</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="details, iterStat : ${businessAuthEntityList}">
+                            <td th:text="${iterStat.index + 1}"></td>
+                            <td>
+                                <a class="modal-trigger" href="#modal1" th:data-title="|${details.ouuid}번 사업자가 사업장을 제출하였습니다.|" th:data-uuid="${details.ouuid}" th:data-pdf-path="@{'/files/' + ${#strings.substring(details.businessDetailsFile, details.businessDetailsFile.lastIndexOf('/') + 1)} }">
+                                    <span th:text="|${details.ouuid}번 사업자가 사업장을 제출하였습니다.|"></span>
+                                </a>
+                            </td>
+                            <td th:text="${details.ouuid}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+<!--                <div class="row">-->
+<!--                    <table class="bordered highlight responsive-table">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th>No</th>-->
+<!--                            <th>제목</th>-->
+<!--                            <th>사업자ID</th>-->
+<!--                            <th>UUID</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr>-->
+<!--                            <td>10</td>-->
+<!--                            <td><a class="modal-trigger" href="#modal1">네이버 지도(v5) 임베드</a></td>-->
+<!--                            <td>아임웹</td>-->
+<!--                            <td>0</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>9</td>-->
+<!--                            <td><a class="modal-trigger" href="#modal1">제목</a></td>-->
+<!--                            <td>아임웹</td>-->
+<!--                            <td>0</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>8</td>-->
+<!--                            <td><a class="modal-trigger" href="#modal1">구글 지도 게시물에 임베드 하기</a></td>-->
+<!--                            <td>아임웹</td>-->
+<!--                            <td>0</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>7</td>-->
+<!--                            <td><a class="modal-trigger" href="#modal1">아이폰 7 플러스</a></td>-->
+<!--                            <td>아임웹</td>-->
+<!--                            <td>0</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>6</td>-->
+<!--                            <td><a class="modal-trigger" href="#modal1">분위기 최고네요~!</a></td>-->
+<!--                            <td>아임웹</td>-->
+<!--                            <td>0</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>5</td>-->
+<!--                            <td><a class="modal-trigger" href="#modal1">진짜로 갑니다~~</a></td>-->
+<!--                            <td>아임웹</td>-->
+<!--                            <td>0</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>4</td>-->
+<!--                            <td><a class="modal-trigger" href="#modal1">탭 메뉴 이미지</a></td>-->
+<!--                            <td>아임웹</td>-->
+<!--                            <td>0</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>3</td>-->
+<!--                            <td><a class="modal-trigger" href="#modal1">응원합니다!</a></td>-->
+<!--                            <td>아임웹</td>-->
+<!--                            <td>0</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>2</td>-->
+<!--                            <td><a class="modal-trigger" href="#modal1">이번엔 가즈아아아아아아아아!</a></td>-->
+<!--                            <td>아임웹</td>-->
+<!--                            <td>0</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td><a class="modal-trigger" href="#modal1">제목만 보여주기!</a></td>-->
+<!--                            <td>아임웹</td>-->
+<!--                            <td>0</td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+                <!-- 게시판 끝 -->
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div style="padding: 200px;"></div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <div th:if="${successMessage}" id="successMessage" th:text="${successMessage}" style="display:none;"></div>
-    <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large pink waves-effect waves-light">
-            <i class="large material-icons">add</i>
-        </a>
+        <div id="successMessage" style="display:none;" th:if="${successMessage}" th:text="${successMessage}"></div>
+        <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+            <a class="btn-floating btn-large pink waves-effect waves-light">
+                <i class="large material-icons">add</i>
+            </a>
 
-        <ul>
-            <li>
-                <a class="btn-floating red"><i class="material-icons">note_add</i></a>
-                <a href="" class="btn-floating fab-tip">Add a note</a>
-            </li>
+            <ul>
+                <li>
+                    <a class="btn-floating red"><i class="material-icons">note_add</i></a>
+                    <a class="btn-floating fab-tip" href="">Add a note</a>
+                </li>
 
-            <li>
-                <a class="btn-floating yellow darken-1"><i class="material-icons">add_a_photo</i></a>
-                <a href="" class="btn-floating fab-tip">Add a photo</a>
-            </li>
+                <li>
+                    <a class="btn-floating yellow darken-1"><i class="material-icons">add_a_photo</i></a>
+                    <a class="btn-floating fab-tip" href="">Add a photo</a>
+                </li>
 
-            <li>
-                <a class="btn-floating green"><i class="material-icons">alarm_add</i></a>
-                <a href="" class="btn-floating fab-tip">Add an alarm</a>
-            </li>
+                <li>
+                    <a class="btn-floating green"><i class="material-icons">alarm_add</i></a>
+                    <a class="btn-floating fab-tip" href="">Add an alarm</a>
+                </li>
 
-            <li>
-                <a class="btn-floating blue"><i class="material-icons">vpn_key</i></a>
-                <a href="" class="btn-floating fab-tip">Add a master password</a>
-            </li>
-        </ul>
+                <li>
+                    <a class="btn-floating blue"><i class="material-icons">vpn_key</i></a>
+                    <a class="btn-floating fab-tip" href="">Add a master password</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </main>
 
 <!-- Modal Structure -->
-<div id="modal1" class="modal">
+<div class="modal" id="modal1">
     <div class="modal-content">
-        <h4>게시글 제목</h4>
-        <p>여기에 게시글 내용이 표시됩니다.</p>
+        <h4 id="modalTitle">게시글 제목</h4>
+        <p id="modalContent"></p>
+        <!-- PDF 뷰어 -->
+        <iframe id="pdfViewer" width="100%" height="500px"></iframe>
+        <!-- PDF 다운로드 링크 -->
+        <a id="pdfDownloadLink" class="waves-effect waves-light btn" href="#" download>PDF 파일 다운로드</a>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">닫기</a>
+        <a class="modal-close waves-effect waves-green btn-flat" href="#!">닫기</a>
     </div>
 </div>
 
@@ -261,10 +266,13 @@
                 <h5 class="white-text">식당 사업자 전용 페이지 입니다.</h5>
                 <ul id='credits'>
                     <li>
-                        Gif Logo made using <a href="https://formtypemaker.appspot.com/" title="Form Type Maker">Form Type Maker</a> from <a href="https://github.com/romannurik/FORMTypeMaker" title="romannurik">romannurik</a>
+                        Gif Logo made using <a href="https://formtypemaker.appspot.com/" title="Form Type Maker">Form
+                        Type Maker</a> from <a href="https://github.com/romannurik/FORMTypeMaker" title="romannurik">romannurik</a>
                     </li>
                     <li>
-                        Icons made by <a href="https://material.io/icons/">Google</a>, available under <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License Version 2.0</a>
+                        Icons made by <a href="https://material.io/icons/">Google</a>, available under <a
+                            href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License Version
+                        2.0</a>
                     </li>
                 </ul>
             </div>
@@ -272,14 +280,32 @@
     </div>
     <div class="footer-copyright">
         <div class="container">
-            <span>소프트웨어공학 3분반 <a style='font-weight: bold;' href="https://github.com/piedcipher" target="_blank"> B4조</a></span>
+            <span>소프트웨어공학 3분반 <a href="https://github.com/piedcipher" style='font-weight: bold;'
+                                 target="_blank"> B4조</a></span>
         </div>
     </div>
 </footer>
 </body>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.modal-trigger').leanModal();
+
+        // Add click event listener to modal triggers
+        $('.modal-trigger').on('click', function() {
+            var title = $(this).data('title');
+            //var uuid = $(this).data('uuid');
+            var pdfPath = $(this).data('pdf-path');
+            var encodedPdfPath = encodeURI(pdfPath); // 인코딩
+
+            $('#modalTitle').text(title);
+            //$('#modalContent').text('UUID: ' + uuid + '에 대한 추가 정보를 여기에 표시합니다.');
+
+            // PDF 뷰어 및 다운로드 링크 업데이트
+            $('#pdfViewer').attr('src', '/files/' + encodedPdfPath);
+            $('#pdfDownloadLink').attr('href', encodedPdfPath);
+
+            $('#modal1').openModal();
+        });
     });
 </script>
 <script th:src="@{/js/management.js}"></script>

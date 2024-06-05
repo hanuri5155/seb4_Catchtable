@@ -50,6 +50,11 @@ public class BusinessRegistrationController {
                 loggedUuid,         // 세션으로 전달 받은 uuid
                 businessDetailsFile // fileStoreService.storeFile(file) 로 파일 경로 반환값
         );
+        model.addAttribute("successMessage", "파일 업로드가 성공적으로 완료되었습니다.");
+        model.addAttribute("businessDetailsFile", businessDetailsFile); // 로그 확인용
+
+        // 로그 출력
+        System.out.println("업로드된 파일 경로: " + businessDetailsFile);
         return "owners/BusinessRegistrationPage";
     }
 }

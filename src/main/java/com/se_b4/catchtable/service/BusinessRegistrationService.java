@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -20,6 +21,10 @@ public class BusinessRegistrationService {
                 .businessDetailsFile(filename)
                 .build();
         businessRegistrationRepository.save(entity);
+    }
+
+    public List<BusinessAuthEntity> findAll() {
+        return businessRegistrationRepository.findAll();
     }
 
 //    // 사업장 파일 조회
