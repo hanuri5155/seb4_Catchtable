@@ -32,7 +32,7 @@ public class ReserveService
     {
         DiningData diningData = diningInfoService.getDiningData(reserveData.getDining_uid()).get(0);
 
-        boolean canReserve = reserveRepository.canReserve(
+        boolean canReserve = reserveData.getCount_person() > 0 && reserveRepository.canReserve(
                 reserveData.getCount_person(),
                 diningData.getCount_seat(),
                 diningData.getUid(),

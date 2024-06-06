@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
@@ -44,28 +44,23 @@
     <div class="bg-white rounded-lg shadow-lg">
         <img src="https://placehold.co/600x400" alt="Dish with vegetables, egg, and meat" class="rounded-t-lg">
         <div class="p-4">
-            <!-- h2 class="text-2xl font-bold mb-2 text-primary">식당 이름</h2 -->
-            <!-- h2 class="text-2xl font-bold mb-2 text-primary" th:text="'식당 이름 #' + ${dining_id}">식당 이름</h2 -->
             <h2 class="text-2xl font-bold mb-2 text-primary" th:text="${dining_name}">식당 이름</h2>
             <div class="flex items-center mb-2">
                 <i class="fas fa-phone-alt text-gray-500 mr-2"></i>
                 <span th:text="${dining_tel}" />
-                <!-- span>051-1234-5678</span -->
             </div>
             <div class="flex items-center mb-2">
                 <i class="fas fa-map-marker-alt text-gray-500 mr-2"></i>
                 <span th:text="${dining_address}" />
-                <!-- span>부산광역시 부산진구 양광로 176</span -->
             </div>
             <div class="flex items-center mb-2">
                 <i class="fas fa-envelope text-gray-500 mr-2"></i>
                 <span th:text="${dining_description}" />
-                <!-- span>스테디셀러인 오색비빔밥을 가성비 있게 즐겨보세요! 비빔밥이 맛있고 사장님이 친절한 집입니다.</span -->
             </div>
         </div>
     </div>
-    <form action="#" th:action="@{/reserves/try-reserve(dining_uid=${dining_uid})}" th:object="${reserveDTO}" method="post">
     <div class="bg-white rounded-lg shadow-lg p-4">
+        <form action="#" th:action="@{/reserves/try-reserve(dining_uid=${dining_uid})}" th:object="${reserveDTO}" id="reservationForm" method="post">
         <h2 class="text-xl font-bold mb-4 text-primary">식당 예약하기</h2>
         <div class="mb-4">
             <label class="block text-gray-700 mb-2">날짜</label>
@@ -80,54 +75,55 @@
             <div class="flex items-center border rounded-lg p-2 bg-gray-200">
                 <i class="fas fa-clock text-gray-500 mr-2"></i>
                 <select th:field="*{reserve_time}" id="usageTime" class="w-full bg-gray-200 outline-none">
-                    <option value="00:00">오전 00:00</option>
-                    <option value="00:30">오전 00:30</option>
-                    <option value="01:00">오전 01:00</option>
-                    <option value="01:30">오전 01:30</option>
-                    <option value="02:00">오전 02:00</option>
-                    <option value="02:30">오전 02:30</option>
-                    <option value="03:00">오전 03:00</option>
-                    <option value="03:30">오전 03:30</option>
-                    <option value="04:00">오전 04:00</option>
-                    <option value="04:30">오전 04:30</option>
-                    <option value="05:00">오전 05:00</option>
-                    <option value="05:30">오전 05:30</option>
-                    <option value="06:00">오전 06:00</option>
-                    <option value="06:30">오전 06:30</option>
-                    <option value="07:00">오전 07:00</option>
-                    <option value="07:30">오전 07:30</option>
-                    <option value="08:00">오전 08:00</option>
-                    <option value="08:30">오전 08:30</option>
-                    <option value="09:00">오전 09:00</option>
-                    <option value="09:30">오전 09:30</option>
-                    <option value="10:00">오전 10:00</option>
-                    <option value="10:30">오전 10:30</option>
-                    <option value="11:00">오전 11:00</option>
-                    <option value="11:30">오전 11:30</option>
-                    <option value="12:00">오후 12:00</option>
-                    <option value="12:30">오후 12:30</option>
-                    <option value="13:00" selected>오후 01:00</option>
-                    <option value="13:30">오후 01:30</option>
-                    <option value="14:00">오후 02:00</option>
-                    <option value="14:30">오후 02:30</option>
-                    <option value="15:00">오후 03:00</option>
-                    <option value="15:30">오후 03:30</option>
-                    <option value="16:00">오후 04:00</option>
-                    <option value="16:30">오후 04:30</option>
-                    <option value="17:00">오후 05:00</option>
-                    <option value="17:30">오후 05:30</option>
-                    <option value="18:00">오후 06:00</option>
-                    <option value="18:30">오후 06:30</option>
-                    <option value="19:00">오후 07:00</option>
-                    <option value="19:30">오후 07:30</option>
-                    <option value="20:00">오후 08:00</option>
-                    <option value="20:30">오후 08:30</option>
-                    <option value="21:00">오후 09:00</option>
-                    <option value="21:30">오후 09:30</option>
-                    <option value="22:00">오후 10:00</option>
-                    <option value="22:30">오후 10:30</option>
-                    <option value="23:00">오후 11:00</option>
-                    <option value="23:30">오후 11:30</option>
+                    <option id="sel-0-00" value="00:01" selected>시간 선택</option>
+                    <option id="sel-0-01" value="00:00">오전 00:00</option>
+                    <option id="sel-0-02" value="00:30">오전 00:30</option>
+                    <option id="sel-0-03" value="01:00">오전 01:00</option>
+                    <option id="sel-0-04" value="01:30">오전 01:30</option>
+                    <option id="sel-0-05" value="02:00">오전 02:00</option>
+                    <option id="sel-0-06" value="02:30">오전 02:30</option>
+                    <option id="sel-0-07" value="03:00">오전 03:00</option>
+                    <option id="sel-0-08" value="03:30">오전 03:30</option>
+                    <option id="sel-0-09" value="04:00">오전 04:00</option>
+                    <option id="sel-0-10" value="04:30">오전 04:30</option>
+                    <option id="sel-0-11" value="05:00">오전 05:00</option>
+                    <option id="sel-0-12" value="05:30">오전 05:30</option>
+                    <option id="sel-0-13" value="06:00">오전 06:00</option>
+                    <option id="sel-0-14" value="06:30">오전 06:30</option>
+                    <option id="sel-0-15" value="07:00">오전 07:00</option>
+                    <option id="sel-0-16" value="07:30">오전 07:30</option>
+                    <option id="sel-0-17" value="08:00">오전 08:00</option>
+                    <option id="sel-0-18" value="08:30">오전 08:30</option>
+                    <option id="sel-0-19" value="09:00">오전 09:00</option>
+                    <option id="sel-0-20" value="09:30">오전 09:30</option>
+                    <option id="sel-0-21" value="10:00">오전 10:00</option>
+                    <option id="sel-0-22" value="10:30">오전 10:30</option>
+                    <option id="sel-0-23" value="11:00">오전 11:00</option>
+                    <option id="sel-0-24" value="11:30">오전 11:30</option>
+                    <option id="sel-0-25" value="12:00">오후 12:00</option>
+                    <option id="sel-0-26" value="12:30">오후 12:30</option>
+                    <option id="sel-0-27" value="13:00">오후 01:00</option>
+                    <option id="sel-0-28" value="13:30">오후 01:30</option>
+                    <option id="sel-0-29" value="14:00">오후 02:00</option>
+                    <option id="sel-0-30" value="14:30">오후 02:30</option>
+                    <option id="sel-0-31" value="15:00">오후 03:00</option>
+                    <option id="sel-0-32" value="15:30">오후 03:30</option>
+                    <option id="sel-0-33" value="16:00">오후 04:00</option>
+                    <option id="sel-0-34" value="16:30">오후 04:30</option>
+                    <option id="sel-0-35" value="17:00">오후 05:00</option>
+                    <option id="sel-0-36" value="17:30">오후 05:30</option>
+                    <option id="sel-0-37" value="18:00">오후 06:00</option>
+                    <option id="sel-0-38" value="18:30">오후 06:30</option>
+                    <option id="sel-0-39" value="19:00">오후 07:00</option>
+                    <option id="sel-0-40" value="19:30">오후 07:30</option>
+                    <option id="sel-0-41" value="20:00">오후 08:00</option>
+                    <option id="sel-0-42" value="20:30">오후 08:30</option>
+                    <option id="sel-0-43" value="21:00">오후 09:00</option>
+                    <option id="sel-0-44" value="21:30">오후 09:30</option>
+                    <option id="sel-0-45" value="22:00">오후 10:00</option>
+                    <option id="sel-0-46" value="22:30">오후 10:30</option>
+                    <option id="sel-0-47" value="23:00">오후 11:00</option>
+                    <option id="sel-0-48" value="23:30">오후 11:30</option>
                 </select>
                 <i class="fas fa-chevron-down text-gray-500 ml-2"></i>
             </div>
@@ -137,12 +133,13 @@
             <div class="flex items-center border rounded-lg p-2 bg-gray-200">
                 <i class="fas fa-user text-gray-500 mr-2"></i>
                 <select th:field="*{count_person}" id="numPeople" class="w-full bg-gray-200 outline-none" onchange="updatePrice()">
-                    <option value="1">1명</option>
-                    <option value="2">2명</option>
-                    <option value="3" selected>3명</option>
-                    <option value="4">4명</option>
-                    <option value="5">5명</option>
-                    <option value="6">6명</option>
+                    <option id="sel-1-00" value="0" selected>인원 선택</option>
+                    <option id="sel-1-01" value="1">1명</option>
+                    <option id="sel-1-02" value="2">2명</option>
+                    <option id="sel-1-03" value="3">3명</option>
+                    <option id="sel-1-04" value="4">4명</option>
+                    <option id="sel-1-05" value="5">5명</option>
+                    <option id="sel-1-06" value="6">6명</option>
                 </select>
                 <i class="fas fa-chevron-down text-gray-500 ml-2"></i>
             </div>
@@ -151,8 +148,8 @@
             <a href="#" class="text-primary">로그인하기</a>
             <button type="submit" id="paymentButton" class="bg-primary text-white px-4 py-2 rounded-lg">결제 (15000원)</button>
         </div>
+        </form>
     </div>
-    </form>
 </div>
 </body>
 <script th:src="@{/js/reserve.js}"></script>

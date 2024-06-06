@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Controller
@@ -49,8 +52,13 @@ public class ReserveController
         reserveData.setReserver_uuid(reserver_uuid);
         reserveData.setDining_uid(dining_uid);
         reserveData.setCount_person(reserveDTO.getCount_person());
-        reserveData.setDate(java.sql.Date.valueOf(reserveDTO.getReserve_date()));
-        reserveData.setTime_begin(reserveDTO.getReserve_time());
+
+        LocalDate ldate = reserveDTO.getReserve_date();
+        Date date = java.sql.Date.valueOf(ldate);
+        LocalTime time = reserveDTO.getReserve_time();
+
+        reserveData.setDate(date);
+        reserveData.setTime_begin(time);
 
         reserveDTO.setReserver_uuid(reserver_uuid);
 
