@@ -304,9 +304,6 @@
             //$('#modalContent').text('UUID: ' + uuid + '에 대한 추가 정보를 여기에 표시합니다.');
 
             // PDF 뷰어 및 다운로드 링크 업데이트
-            var fullPath = '/file/' + pdfPath;
-            console.log("Full PDF Path: ", fullPath); // Log the full path for debugging
-            $('#pdfViewer').attr('src', fullPath);
             $('#pdfDownloadLink').attr('href', '/download/' + pdfPath);
 
             $('#modal1').openModal();
