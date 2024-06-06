@@ -299,15 +299,26 @@
             //var uuid = $(this).data('uuid');
             var pdfPath = $(this).data('pdf-path');
 
-
             $('#modalTitle').text(title);
             //$('#modalContent').text('UUID: ' + uuid + '에 대한 추가 정보를 여기에 표시합니다.');
 
             // PDF 뷰어 및 다운로드 링크 업데이트
-            $('#pdfDownloadLink').attr('href', '/download/' + pdfPath);
+            $('#pdfDownloadLink').attr('href', 'admins/download/' + pdfPath);
 
             $('#modal1').openModal();
         });
+
+        $('#pdfDownloadLink').on('click', function(event) {
+            event.preventDefault();
+
+            const link = $(this).attr('href');
+
+            if(link && link !== '#')
+            {
+                window.location.href = link;
+            }
+        });
+
         // 승인 버튼 클릭 이벤트 리스너
         $('#approveBtn').on('click', function() {
             alert('승인되었습니다.');

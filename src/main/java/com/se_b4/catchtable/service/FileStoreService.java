@@ -1,24 +1,24 @@
 package com.se_b4.catchtable.service;
 
-import com.se_b4.catchtable.dto.UploadFile;
-import lombok.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Path;
 import java.util.UUID;
 
 @Component
 public class FileStoreService {
 
-    // 상대 경로 말고 절대 경로 사용할것 (환경에 따라 수정하기)
-    private String fileDir = "G:\\Projects\\Deu\\3-junior\\SE\\seb4_Catchtable\\seb4_Catchtable\\src\\main\\resources\\static\\file\\";
+    public static String GetAbsoluteRoot()
+    {
+        return Path.of("src/main/resources/static/download").toAbsolutePath().toString() + '\\';
+    }
 
-    public String getFullPath(String filename) { //파일이름 받아서 fullpath를 반환
-        return fileDir + filename; // 디렉토리에 파일이름이 합쳐짐
+    public String getFullPath(String filename)
+    { //파일이름 받아서 fullpath를 반환
+        return FileStoreService.GetAbsoluteRoot() + filename; // 디렉토리에 파일이름이 합쳐짐
     }
 
     // MultipartFile을 받아서 파일을 저장한 다음에 파일 경로 반환
@@ -45,16 +45,3 @@ public class FileStoreService {
         return originalFilename.substring(pos + 1); // . 다음에 있는 확장자명 꺼냄
     }
 }
-//    // 루프를 돌면서 multipartFile 이 비어있지 않으면 실행하여 storeFileResult 에 넣어서 결과 반환
-//    public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException { // 여러 개 업로드시 사용
-//        List<UploadFile> storeFileResult = new ArrayList<>(); // 업로드 파일이 계속 생성이 되기 때문에 담아줘야 함
-//        for (MultipartFile multipartFile : multipartFiles) {
-//            if (!multipartFile.isEmpty()) { // multipartFile 이 비어있지 않으면!
-//                storeFileResult.add(storeFile(multipartFile));
-//                // 위 코드를 두줄로 하면
-//                UploadFile uploadFile = storeFile(multipartFile);
-//                storeFileResult.add(uploadFile);
-//            }
-//        }
-//        return storeFileResult;
-//    }
