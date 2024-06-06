@@ -111,7 +111,7 @@
             <div align="center" class="card" style="padding: 35px;">
                 <div class="row">
                     <div class="left card-title">
-                        <b>식당 사업자 등록</b>
+                        <b>사업장 등록 승인 대기 목록</b>
                     </div>
                 </div>
                 <!-- 게시판 추가 -->
@@ -250,12 +250,14 @@
     <div class="modal-content">
         <h4 id="modalTitle">게시글 제목</h4>
         <p id="modalContent"></p>
-        <!-- PDF 뷰어 -->
-        <iframe id="pdfViewer" width="100%" height="500px"></iframe>
+<!--        &lt;!&ndash; PDF 뷰어 &ndash;&gt;-->
+<!--        <iframe id="pdfViewer" width="100%" height="500px"></iframe>-->
         <!-- PDF 다운로드 링크 -->
         <a id="pdfDownloadLink" class="waves-effect waves-light btn" href="#" download>PDF 파일 다운로드</a>
     </div>
     <div class="modal-footer">
+        <a id="approveBtn" class="waves-effect waves-green btn-flat" href="#!">승인</a>
+        <a id="rejectBtn" class="waves-effect waves-red btn-flat" href="#!">거절</a>
         <a class="modal-close waves-effect waves-green btn-flat" href="#!">닫기</a>
     </div>
 </div>
@@ -308,6 +310,17 @@
             $('#pdfDownloadLink').attr('href', '/download/' + pdfPath);
 
             $('#modal1').openModal();
+        });
+        // 승인 버튼 클릭 이벤트 리스너
+        $('#approveBtn').on('click', function() {
+            alert('승인되었습니다.');
+            $('#modal1').closeModal();
+        });
+
+        // 거절 버튼 클릭 이벤트 리스너
+        $('#rejectBtn').on('click', function() {
+            alert('거절되었습니다.');
+            $('#modal1').closeModal();
         });
     });
 </script>
