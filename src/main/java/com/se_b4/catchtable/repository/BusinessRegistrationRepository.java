@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Transactional
 @Repository
-public interface BusinessRegistrationRepository extends JpaRepository<BusinessAuthEntity, Long> {
+public interface BusinessRegistrationRepository
+        extends JpaRepository<BusinessAuthEntity, Long> {
 }
 

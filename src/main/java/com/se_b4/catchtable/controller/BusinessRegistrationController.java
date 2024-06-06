@@ -22,19 +22,22 @@ public class BusinessRegistrationController {
 
     @GetMapping("/BusinessRegistrationPage")
     public String BusinessRegistrationPage(HttpSession session, Model model) {
-        Long loggedUuid = (Long) session.getAttribute("loggedUuid");
+        Long loggedUuid = (Long) session.getAttribute("loggedUuid"); // 세션 받아오기
         if (loggedUuid == null) {
             return "redirect:/signin";
         }
 
-        model.addAttribute("loggedUuid", loggedUuid);
-        System.out.println("세션 전달 확인(ouuid): " + loggedUuid);
+        model.addAttribute("loggedUuid", loggedUuid); // 세션 전달
         model.addAttribute("businessAuth", new BusinessAuthDTO());
         return "owners/BusinessRegistrationPage";
     }
 
     @PostMapping("/upload")
-    public String uploadBusinessDetails(@Valid @ModelAttribute("businessAuth") BusinessAuthDTO businessAuthDTO, HttpSession session, @RequestParam(value="file") MultipartFile file, Model model) throws IOException {
+    public String uploadBusinessDetails(@Valid @ModelAttribute("businessAuth")
+                                            BusinessAuthDTO businessAuthDTO,
+                                        HttpSession session, @RequestParam(value="file")
+                                            MultipartFile file,
+                                        Model model) throws IOException {
         Long loggedUuid = (Long) session.getAttribute("loggedUuid");
         if (loggedUuid == null) {
             return "redirect:/";
@@ -43,13 +46,15 @@ public class BusinessRegistrationController {
         model.addAttribute("loggedUuid", loggedUuid);
         System.out.println("세션 전달 확인(ouuid): " + loggedUuid);
 
+        // 파일 이름이 겹치면 덮어씌워지므로 업로드 후 고유한 이름으로 변환
         String businessDetailsFile = fileStoreService.storeFile(file);
 
         businessRegistrationService.saveBusinessDetails(
                 loggedUuid,         // 세션으로 전달 받은 uuid
-                businessDetailsFile // fileStoreService.storeFile(file) 로 고유한 파일명으로 반환
+                businessDetailsFile // 고유한 파일명
         );
-        model.addAttribute("successMessage", "파일 업로드가 성공적으로 완료되었습니다.");
+        model.addAttribute("successMessage",
+                "파일 업로드가 성공적으로 완료되었습니다.");
         model.addAttribute("businessDetailsFile", businessDetailsFile); // 로그 확인용
 
         // 로그 출력

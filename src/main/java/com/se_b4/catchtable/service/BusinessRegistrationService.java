@@ -5,16 +5,14 @@ import com.se_b4.catchtable.repository.BusinessRegistrationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class BusinessRegistrationService {
     private final BusinessRegistrationRepository businessRegistrationRepository;
-
     // 사업장 파일 저장
-    public void saveBusinessDetails(Long ouuid, String filename) throws IOException {
+    public void saveBusinessDetails(Long ouuid, String filename) {
         BusinessAuthEntity entity = BusinessAuthEntity.builder()
                 .ouuid(ouuid)
                 .businessDetailsFile(filename)
