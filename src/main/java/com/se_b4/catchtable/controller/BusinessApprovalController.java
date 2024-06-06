@@ -1,7 +1,7 @@
 package com.se_b4.catchtable.controller;
 
 import com.se_b4.catchtable.entity.BusinessAuthEntity;
-import com.se_b4.catchtable.service.BusinessRegistrationService;
+import com.se_b4.catchtable.service.BusinessApprovalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/admins")
 public class BusinessApprovalController {
-    private final BusinessRegistrationService businessRegistrationService;
+    private final BusinessApprovalService businessApprovalService;
 
     @GetMapping("/BusinessApprovalPage")
     public String BusinessApprovalPage(Model model) {
-        List<BusinessAuthEntity> businessAuthEntityList = businessRegistrationService.findAll();
+        List<BusinessAuthEntity> businessAuthEntityList = businessApprovalService.BusinessApproval();
         model.addAttribute("businessAuthEntityList", businessAuthEntityList);
         return "admins/BusinessApprovalPage";
     }

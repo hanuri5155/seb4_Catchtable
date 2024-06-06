@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -26,10 +25,4 @@ public class BusinessRegistrationService {
     public List<BusinessAuthEntity> findAll() {
         return businessRegistrationRepository.findAll();
     }
-
-//    // 사업장 파일 조회
-//    public String getBusinessDetails(Long ouuid) {
-//        Optional<BusinessAuthEntity> entityOptional = businessRegistrationRepository.findByOuuid(ouuid);
-//        return entityOptional.map(BusinessAuthEntity::getBusinessDetailsFile).orElse(null);
-//    }
 }

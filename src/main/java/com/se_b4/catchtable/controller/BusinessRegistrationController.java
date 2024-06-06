@@ -47,7 +47,7 @@ public class BusinessRegistrationController {
 
         businessRegistrationService.saveBusinessDetails(
                 loggedUuid,         // 세션으로 전달 받은 uuid
-                businessDetailsFile // fileStoreService.storeFile(file) 로 서버에 저장하는 파일명 반환
+                businessDetailsFile // fileStoreService.storeFile(file) 로 고유한 파일명으로 반환
         );
         model.addAttribute("successMessage", "파일 업로드가 성공적으로 완료되었습니다.");
         model.addAttribute("businessDetailsFile", businessDetailsFile); // 로그 확인용
